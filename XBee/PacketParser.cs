@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using XBee.Frames.ATCommands;
+using XBee.Exceptions;
 
 namespace XBee
 {
@@ -17,6 +18,18 @@ namespace XBee
         public PacketParser(MemoryStream packetStream)
         {
             this.packetStream = packetStream;
+        }
+
+        private byte[] ReadIntoBuffer<T>(int neededBytes)
+        {
+            var buffer = new byte[neededBytes];
+
+            var dataLength = packetStream.Read(buffer, 0, buffer.Length);
+            if (dataLength != buffer.Length)
+                throw new XBeeProtocolException(String.Format("Only {0} instead of {1} bytes available to parse {2}.",
+                                                              dataLength, neededBytes, typeof(T)));
+
+            return buffer;
         }
 
         public XBeeAddress64 ReadAddress64()
