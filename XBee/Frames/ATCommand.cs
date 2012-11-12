@@ -19,6 +19,16 @@ namespace XBee.Frames
             set { atCommand = value; }
         }
 
+        public ATValue Value {
+            get {
+                return this.value;
+            }
+            set {
+                this.value = value;
+                if (value != null) hasValue = true;
+            }
+        }
+
         public ATCommand(PacketParser parser)
         {
             this.parser = parser;
@@ -29,12 +39,6 @@ namespace XBee.Frames
         {
             this.atCommand = atCommand;
             CommandId = XBeeAPICommandId.AT_COMMAND_REQUEST;
-        }
-
-        public void SetValue(ATValue value)
-        {
-            hasValue = true;
-            this.value = value;
         }
 
         public override byte[] ToByteArray()
@@ -62,7 +66,7 @@ namespace XBee.Frames
             atCommand = parser.ReadATCommand();
 
             if (parser.HasMoreData()) {
-                Console.WriteLine("TODO: has data!");
+                Console.WriteLine("TODO: has data!"); //FIXME
             }
         }
     }
