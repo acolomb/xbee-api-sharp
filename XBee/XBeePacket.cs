@@ -25,7 +25,7 @@ namespace XBee
             data.WriteByte((byte) XBeeSpecialBytes.StartByte);
 
             var packetLength = BitConverter.GetBytes((ushort)frameData.Length);
-            Array.Reverse(packetLength);
+            if (BitConverter.IsLittleEndian) Array.Reverse(packetLength);
 
             data.WriteByte(packetLength[0]);
             data.WriteByte(packetLength[1]);

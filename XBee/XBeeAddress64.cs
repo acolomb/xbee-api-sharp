@@ -12,7 +12,7 @@ namespace XBee
         public XBeeAddress64(ulong address)
         {
             var addressLittleEndian = BitConverter.GetBytes(address);
-            Array.Reverse(addressLittleEndian);
+            if (BitConverter.IsLittleEndian) Array.Reverse(addressLittleEndian);
             this.address = addressLittleEndian;
         }
 

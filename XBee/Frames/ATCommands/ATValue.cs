@@ -61,7 +61,7 @@ namespace XBee.Frames.ATCommands
 
         public override ATValue FromByteArray(byte[] value)
         {
-            Array.Reverse(value);
+            if (BitConverter.IsLittleEndian) Array.Reverse(value);
             return new ATLongValue(ToInt(value));
         }
 
@@ -92,7 +92,7 @@ namespace XBee.Frames.ATCommands
                 longArray = BitConverter.GetBytes((uint)Value);
             else
                 longArray = BitConverter.GetBytes(Value);
-            Array.Reverse(longArray);
+            if (BitConverter.IsLittleEndian) Array.Reverse(longArray);
             return longArray;
         }
     }

@@ -73,13 +73,13 @@ namespace XBee.Frames
             if (!ClusterId.HasValue)
                 throw new XBeeFrameException("Missing Cluster ID");
             var clusterIdMsb = BitConverter.GetBytes(ClusterId.Value);
-            Array.Reverse(clusterIdMsb);
+            if (BitConverter.IsLittleEndian) Array.Reverse(clusterIdMsb);
             stream.Write(clusterIdMsb, 0, 2);
 
             if (!ProfileId.HasValue)
                 throw new XBeeFrameException("Missing Profile ID");
             var profileIdMsb = BitConverter.GetBytes(ProfileId.Value);
-            Array.Reverse(profileIdMsb);
+            if (BitConverter.IsLittleEndian) Array.Reverse(profileIdMsb);
             stream.Write(profileIdMsb, 0, 2);
 
             stream.WriteByte(BroadcastRadius);

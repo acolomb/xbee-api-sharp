@@ -23,7 +23,7 @@ namespace XBee
         {
             var addr = new byte[8];
             packetStream.Read(addr, 0, 8);
-            Array.Reverse(addr);
+            if (BitConverter.IsLittleEndian) Array.Reverse(addr);
 
             return new XBeeAddress64(BitConverter.ToUInt64(addr, 0));
         }
@@ -53,7 +53,7 @@ namespace XBee
         {
             var value = new byte[2];
             packetStream.Read(value, 0, 2);
-            Array.Reverse(value);
+            if (BitConverter.IsLittleEndian) Array.Reverse(value);
 
             return BitConverter.ToUInt16(value, 0);
         }
@@ -62,7 +62,7 @@ namespace XBee
         {
             var value = new byte[4];
             packetStream.Read(value, 0, 4);
-            Array.Reverse(value);
+            if (BitConverter.IsLittleEndian) Array.Reverse(value);
 
             return BitConverter.ToUInt32(value, 0);
         }
