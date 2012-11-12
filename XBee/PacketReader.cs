@@ -1,11 +1,14 @@
 using System.IO;
 using System.Linq;
+using NLog;
 using XBee.Exceptions;
+using XBee.Utils;
 
 namespace XBee
 {
     public class PacketReader : IPacketReader
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public event FrameReceivedHandler FrameReceived;
 
         protected MemoryStream Stream = new MemoryStream();
@@ -27,6 +30,9 @@ namespace XBee
                 Stream.WriteByte(b);
             }
 
+            //FIXME: several API frames in one serial RX packet not handled correctly!
+            //FIXME: Write a test for this!
+
             if (packetLength == 0 && Stream.Length > 2) {
                 var packet = Stream.ToArray();
                 packetLength = (uint) (packet[0] << 8 | packet[1]) + 3;
@@ -43,6 +49,7 @@ namespace XBee
 
         protected virtual void ProcessReceivedData()
         {
+            logger.Debug("API frame complete: [" + ByteUtils.ToBase16(Stream.ToArray()) + "]");
             try {
                 var frame = XBeePacketUnmarshaler.Unmarshal(Stream.ToArray());
                 packetLength = 0;
