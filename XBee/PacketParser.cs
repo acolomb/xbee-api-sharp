@@ -95,10 +95,14 @@ namespace XBee
         public string ReadString()
         {
             var sb = new StringBuilder();
-            char b;
-            while((b = (char)packetStream.ReadByte()) != 0x00) {
-                sb.Append(b);
+            int b;
+            while ((b = packetStream.ReadByte()) != -1) {
+                if ((char) b == 0x00) break;
+                sb.Append((char) b);
             }
+            if ((char) b != 0x00)
+                throw new XBeeProtocolException(String.Format("Unterminated string of length {0}.", sb.Length));
+
             return sb.ToString();
         }
     }
