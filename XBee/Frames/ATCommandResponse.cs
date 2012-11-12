@@ -7,11 +7,11 @@ namespace XBee.Frames
 {
     public class ATCommandResponse : XBeeFrame
     {
-        private readonly PacketParser parser;
+        protected readonly PacketParser parser;
 
-        public AT Command { get; private set; }
-        public ATValue Value { get; private set; }
-        public byte CommandStatus { get; private set; }
+        public AT Command { get; protected set; }
+        public ATValue Value { get; protected set; }
+        public byte CommandStatus { get; protected set; }
 
         public ATCommandResponse(PacketParser parser)
         {
@@ -35,6 +35,11 @@ namespace XBee.Frames
             Command = parser.ReadATCommand();
             CommandStatus = (byte)parser.ReadByte();
 
+            ParseValue();
+        }
+
+        protected void ParseValue()
+        {
             if (Command == AT.NodeDiscover)
                 ParseNetworkDiscovery();
 
