@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XBee", "XBee\XBee.csproj", "{026296FF-9939-49DC-AD87-7F8780D7E1B0}"
@@ -46,6 +47,9 @@ Global
 		{99C041C6-A827-4144-8BA4-D1970C2979B6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{99C041C6-A827-4144-8BA4-D1970C2979B6}.Release|x86.ActiveCfg = Release|x86
 		{99C041C6-A827-4144-8BA4-D1970C2979B6}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = XBee\XBee.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
