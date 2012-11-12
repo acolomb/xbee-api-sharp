@@ -34,8 +34,7 @@ namespace XBee
 
         public XBeeAddress64 ReadAddress64()
         {
-            var addr = new byte[8];
-            packetStream.Read(addr, 0, 8);
+            var addr = ReadIntoBuffer<XBeeAddress64>(8);
             if (BitConverter.IsLittleEndian) Array.Reverse(addr);
 
             return new XBeeAddress64(BitConverter.ToUInt64(addr, 0));
@@ -43,29 +42,31 @@ namespace XBee
 
         public XBeeAddress16 ReadAddress16()
         {
-            var addr = (ushort) ((packetStream.ReadByte() << 8) | packetStream.ReadByte());
-            return new XBeeAddress16(addr);
+            var addr = ReadIntoBuffer<XBeeAddress16>(2);
+            if (BitConverter.IsLittleEndian) Array.Reverse(addr);
+
+            return new XBeeAddress16(BitConverter.ToUInt16(addr, 0));
         }
 
         public AT ReadATCommand()
         {
-            var cmd = new char[2];
-
-            cmd[0] = (char) packetStream.ReadByte();
-            cmd[1] = (char) packetStream.ReadByte();
-
-            return ATUtil.Parse(new String(cmd));
+            var cmd = ReadIntoBuffer<AT>(2);
+  
+            return ATUtil.Parse(Encoding.ASCII.GetString(cmd));
         }
 
         public int ReadByte()
         {
-            return packetStream.ReadByte();
+            var value = packetStream.ReadByte();
+            if (value == -1)
+                throw new XBeeProtocolException("Expected data byte not available.");
+
+            return value;
         }
 
         public ushort ReadUInt16()
         {
-            var value = new byte[2];
-            packetStream.Read(value, 0, 2);
+            var value = ReadIntoBuffer<UInt16>(2);
             if (BitConverter.IsLittleEndian) Array.Reverse(value);
 
             return BitConverter.ToUInt16(value, 0);
@@ -73,8 +74,7 @@ namespace XBee
 
         public uint ReadUInt32()
         {
-            var value = new byte[4];
-            packetStream.Read(value, 0, 4);
+            var value = ReadIntoBuffer<UInt32>(4);
             if (BitConverter.IsLittleEndian) Array.Reverse(value);
 
             return BitConverter.ToUInt32(value, 0);
@@ -87,10 +87,8 @@ namespace XBee
 
         public byte[] ReadData()
         {
-            var readLength = (int)(packetStream.Length - packetStream.Position);
-            var data = new byte[readLength];
+            var data = ReadIntoBuffer<byte[]>((int) (packetStream.Length - packetStream.Position));
 
-            packetStream.Read(data, 0, readLength);
             return data;
         }
 
