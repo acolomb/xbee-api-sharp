@@ -7,13 +7,11 @@ namespace XBee.Frames
 {
     public class ATCommand : XBeeFrame
     {
-
-        private bool hasValue;
-        private ATValue value;
-        private readonly PacketParser parser;
-
+        protected readonly PacketParser parser;
+        
         public AT Command { get; protected set; }
-
+        private ATValue value;
+        protected bool hasValue;
         public ATValue Value {
             get {
                 return this.value;
