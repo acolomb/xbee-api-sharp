@@ -3,17 +3,17 @@ using System.Text;
 
 namespace XBee.Frames.ATCommands
 {
-	public enum ATValueType
-	{
-		None,
-		Number,
-		String,
-		HexString,
-	}
-	
+    public enum ATValueType
+    {
+        None,
+        Number,
+        String,
+        HexString,
+    }
 
 
-	public abstract class ATValue
+
+    public abstract class ATValue
     {
         public abstract ATValue FromByteArray(byte[] value);
         public abstract byte[] ToByteArray();
@@ -21,7 +21,7 @@ namespace XBee.Frames.ATCommands
 
     
 
-	public class ATStringValue : ATValue
+    public class ATStringValue : ATValue
     {
         public string Value { get; set; }
 
@@ -35,8 +35,8 @@ namespace XBee.Frames.ATCommands
 
         public override ATValue FromByteArray(byte[] value)
         {
-            var atValue = new ATStringValue(Encoding.UTF8.GetString(value, 0, value.Length));
-            return atValue;
+            Value = Encoding.UTF8.GetString(value, 0, value.Length);
+            return this;
         }
 
         public override byte[] ToByteArray()
@@ -47,7 +47,7 @@ namespace XBee.Frames.ATCommands
 
     
 
-	public class ATLongValue : ATValue
+    public class ATLongValue : ATValue
     {
         public ulong Value { get; set; }
 
@@ -61,12 +61,13 @@ namespace XBee.Frames.ATCommands
 
         public override ATValue FromByteArray(byte[] value)
         {
-            if (BitConverter.IsLittleEndian) Array.Reverse(value);
-            return new ATLongValue(ToInt(value));
+            Value = ToInt(value);
+            return this;
         }
 
         private ulong ToInt(byte[] value)
         {
+            if (BitConverter.IsLittleEndian) Array.Reverse(value);
             switch (value.Length) {
                 case 1:
                     return value[0];
