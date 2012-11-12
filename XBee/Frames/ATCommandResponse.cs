@@ -7,11 +7,20 @@ namespace XBee.Frames
 {
     public class ATCommandResponse : XBeeFrame
     {
+        public enum CommandStatusType
+        {
+            Ok = 0x00,
+            Error = 0x01,
+            InvalidCommand = 0x02,
+            InvalidParameter = 0x03,
+            TransmissionFailed = 0x04
+        }
+        
         protected readonly PacketParser parser;
 
         public AT Command { get; protected set; }
         public ATValue Value { get; protected set; }
-        public byte CommandStatus { get; protected set; }
+        public CommandStatusType CommandStatus { get; protected set; }
 
         public ATCommandResponse(PacketParser parser)
         {
@@ -33,7 +42,7 @@ namespace XBee.Frames
         {
             FrameId = (byte)parser.ReadByte();
             Command = parser.ReadATCommand();
-            CommandStatus = (byte)parser.ReadByte();
+            CommandStatus = (CommandStatusType)parser.ReadByte();
 
             ParseValue();
         }
@@ -45,8 +54,10 @@ namespace XBee.Frames
 
             var type = ((ATAttribute)Command.GetAttr()).ValueType;
 
-            if ((type != ATValueType.None) && parser.HasMoreData()) {
+            if (parser.HasMoreData()) {
                 switch (type) {
+                    case ATValueType.None:
+                        break;
                     case ATValueType.Number:
                         var vData = parser.ReadData();
                         Value = new ATLongValue().FromByteArray(vData);

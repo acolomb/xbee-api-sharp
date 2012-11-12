@@ -18,7 +18,7 @@ namespace XBee.Test.Frames
             var cmd = (ATCommandResponse) frame;
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));
             Assert.That(cmd.Command, Is.EqualTo(AT.BaudRate));
-            Assert.That(cmd.CommandStatus, Is.EqualTo(0));
+            Assert.That(cmd.CommandStatus, Is.EqualTo(ATCommandResponse.CommandStatusType.Ok));
         }
 
         [Test]
