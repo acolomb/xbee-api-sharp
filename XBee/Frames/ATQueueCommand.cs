@@ -1,4 +1,5 @@
 using System;
+using XBee.Frames.ATCommands;
 
 namespace XBee.Frames
 {

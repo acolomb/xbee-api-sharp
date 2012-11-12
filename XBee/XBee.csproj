@@ -47,7 +47,6 @@
     <Compile Include="Exceptions\XBeeException.cs" />
     <Compile Include="Exceptions\XBeeFrameException.cs" />
     <Compile Include="FrameReceivedArgs.cs" />
-    <Compile Include="Frames\AT.cs" />
     <Compile Include="Frames\ATQueueCommand.cs" />
     <Compile Include="Frames\CreateSourceRoute.cs" />
     <Compile Include="Frames\ManyToOneRouteRequest.cs" />
@@ -70,7 +69,6 @@
     <Compile Include="EscapedPacketReader.cs" />
     <Compile Include="Frames\ATCommand.cs" />
     <Compile Include="Frames\ATCommandResponse.cs" />
-    <Compile Include="Frames\ATValue.cs" />
     <Compile Include="Frames\ExplicitAddressingTransmit.cs" />
     <Compile Include="Frames\NodeIdentification.cs" />
     <Compile Include="Frames\TransmitDataRequest.cs" />
@@ -90,6 +88,8 @@
     <Compile Include="XBeeNode.cs" />
     <Compile Include="XBeePacket.cs" />
     <Compile Include="XBeeSpecialBytes.cs" />
+    <Compile Include="Frames\ATCommands\AT.cs" />
+    <Compile Include="Frames\ATCommands\ATValue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -99,4 +99,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Frames\ATCommands\" />
+  </ItemGroup>
 </Project>

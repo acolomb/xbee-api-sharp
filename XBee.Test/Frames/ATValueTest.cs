@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using XBee.Frames;
+using XBee.Frames.ATCommands;
 
 namespace XBee.Test.Frames
 {

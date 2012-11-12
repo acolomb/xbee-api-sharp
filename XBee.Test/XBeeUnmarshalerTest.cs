@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using XBee.Frames;
+using XBee.Frames.ATCommands;
 using XBee.Exceptions;
 
 namespace XBee.Test

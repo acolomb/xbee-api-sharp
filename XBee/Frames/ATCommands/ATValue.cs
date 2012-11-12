@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace XBee.Frames
+namespace XBee.Frames.ATCommands
 {
     public abstract class ATValue
     {

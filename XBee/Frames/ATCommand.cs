@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using XBee.Frames.ATCommands;
 using XBee.Utils;
 
 namespace XBee.Frames

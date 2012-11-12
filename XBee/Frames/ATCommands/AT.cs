@@ -1,7 +1,7 @@
 using System;
 using XBee.Utils;
 
-namespace XBee.Frames
+namespace XBee.Frames.ATCommands
 {
 
     public class ATAttribute : EnumAttribute

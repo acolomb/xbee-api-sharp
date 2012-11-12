@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
-using XBee.Frames;
+using XBee.Frames.ATCommands;
 
 namespace XBee
 {
