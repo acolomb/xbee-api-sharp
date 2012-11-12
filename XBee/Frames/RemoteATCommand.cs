@@ -5,34 +5,26 @@ using XBee.Utils;
 
 namespace XBee.Frames
 {
-    public class RemoteATCommand : XBeeFrame
+    public class RemoteATCommand : ATCommand
     {
-        private readonly PacketParser parser;
-        private ATValue value;
-        private bool hasValue;
-
-        public AT Command { get; set; }
         public XBeeNode Destination { get; set; }
         public byte RemoteOptions { get; set; }
 
-        public RemoteATCommand(PacketParser parser)
+
+        public RemoteATCommand(PacketParser parser) :
+            base(parser)
         {
-            this.parser = parser;
             CommandId = XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST;
         }
 
-        public RemoteATCommand(AT command, XBeeNode destination)
+        public RemoteATCommand(AT command, XBeeNode destination) :
+            base(command)
         {
             CommandId = XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST;
             Command = command;
             Destination = destination;
         }
 
-        public void SetValue(ATValue value)
-        {
-            hasValue = true;
-            this.value = value;
-        }
 
         public override byte[] ToByteArray()
         {
@@ -51,7 +43,7 @@ namespace XBee.Frames
             stream.WriteByte((byte)cmd[1]);
 
             if (hasValue) {
-                var v = value.ToByteArray();
+                var v = Value.ToByteArray();
                 stream.Write(v, 0, v.Length);
             }
 
@@ -68,7 +60,7 @@ namespace XBee.Frames
             Command = parser.ReadATCommand();
 
             if (parser.HasMoreData()) {
-                Console.WriteLine("TODO: has data!");
+                Console.WriteLine("TODO: has data!"); //FIXME
             }
         }
     }
