@@ -41,14 +41,6 @@ namespace XBee.Frames.ATCommands
         }
     }
 
-    public enum ATValueType
-    {
-        None,
-        Number,
-        String,
-        HexString,
-    }
-
     public enum AT
     {
         [AT("DH", "Destination Address High", ATValueType.Number, 0xFFFFFFFF)]

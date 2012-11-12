@@ -3,13 +3,25 @@ using System.Text;
 
 namespace XBee.Frames.ATCommands
 {
-    public abstract class ATValue
+	public enum ATValueType
+	{
+		None,
+		Number,
+		String,
+		HexString,
+	}
+	
+
+
+	public abstract class ATValue
     {
         public abstract ATValue FromByteArray(byte[] value);
         public abstract byte[] ToByteArray();
     }
 
-    public class ATStringValue : ATValue
+    
+
+	public class ATStringValue : ATValue
     {
         public string Value { get; set; }
 
@@ -33,7 +45,9 @@ namespace XBee.Frames.ATCommands
         }
     }
 
-    public class ATLongValue : ATValue
+    
+
+	public class ATLongValue : ATValue
     {
         public ulong Value { get; set; }
 
