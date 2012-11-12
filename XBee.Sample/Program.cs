@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using XBee.Frames;
+using XBee.Frames.ATCommands;
 
 namespace XBee.Sample
 {
