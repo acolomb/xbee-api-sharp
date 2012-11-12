@@ -12,7 +12,7 @@ namespace XBee.Frames
 
         public override void Parse()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();//FIXME
         }
     }
 }

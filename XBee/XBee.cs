@@ -21,7 +21,7 @@ namespace XBee
         private Thread receiveThread;
         private bool stopThread;
 
-        private byte frameId = byte.MinValue;
+        private byte frameId = byte.MinValue; //FIXME
 
         private bool frameReceived = false;
         private XBeeFrame lastFrame = null;
@@ -59,7 +59,7 @@ namespace XBee
                 if (frameId == byte.MaxValue)
                     frameId = byte.MinValue;
 
-                frame.FrameId = ++frameId;
+                frame.FrameId = ++frameId; //FIXME
             }
 
             var packet = new XBeePacket(frame);
