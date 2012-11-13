@@ -3,14 +3,13 @@ using XBee.Utils;
 
 namespace XBee.Frames.ATCommands
 {
-
     public class ATAttribute : EnumAttribute
     {
         public ATAttribute(string atCommand, string description, ATValueType type)
         {
             ATCommand = atCommand;
             Description = description;
-            ValueType = type;
+            ReturnValueType = type;
         }
 
         public ATAttribute(string atCommand, string description, ATValueType type, ulong maxValue)
@@ -18,12 +17,12 @@ namespace XBee.Frames.ATCommands
             ATCommand = atCommand;
             Description = description;
             MaximumValue = maxValue;
-            ValueType = type;
+            ReturnValueType = type;
         }
 
         public string ATCommand { get; private set; }
         public string Description { get; private set; }
-        public ATValueType ValueType { get; private set; }
+        public ATValueType ReturnValueType { get; private set; }
         public ulong MaximumValue { get; private set; }
     }
 

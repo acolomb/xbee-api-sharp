@@ -52,7 +52,7 @@ namespace XBee.Frames
             if (Command == AT.NodeDiscover)
                 ParseNetworkDiscovery();
 
-            var type = ((ATAttribute)Command.GetAttr()).ValueType;
+            var type = ((ATAttribute) Command.GetAttr()).ReturnValueType;
 
             if (parser.HasMoreData()) {
                 switch (type) {
