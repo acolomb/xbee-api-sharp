@@ -9,6 +9,7 @@ namespace XBee.Frames.ATCommands
         Number,
         String,
         HexString,
+        NodeIdentifier,
     }
 
 
@@ -101,6 +102,44 @@ namespace XBee.Frames.ATCommands
                 longArray = BitConverter.GetBytes(Value);
             if (BitConverter.IsLittleEndian) Array.Reverse(longArray);
             return longArray;
+        }
+    }
+
+
+
+    public class ATNodeIdentifierValue : ATValue
+    {
+        public const int maxLength = 20;
+
+        private char[] identifier;
+
+        public string Value {
+            get {
+                return new string(identifier);
+            }
+            set {
+                if (value.Length > maxLength) identifier = value.Substring(0, maxLength).ToCharArray();
+                else identifier = value.ToCharArray();
+            }
+        }
+
+        public ATNodeIdentifierValue()
+        { }
+
+        public ATNodeIdentifierValue(string v)
+        {
+            Value = v;
+        }
+
+        public override ATValue FromByteArray(byte[] value)
+        {
+            Value = Encoding.ASCII.GetString(value, 0, maxLength);
+            return this;
+        }
+
+        public override byte[] ToByteArray()
+        {
+            return Encoding.ASCII.GetBytes(Value);
         }
     }
 }
