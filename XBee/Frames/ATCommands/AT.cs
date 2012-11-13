@@ -81,7 +81,7 @@ namespace XBee.Frames.ATCommands
         SerialNumberHigh,
         [AT("SL", "Serial Number Low", ATValueType.Number, 0xFFFFFFFF)]
         SerialNumberLow,
-        [AT("NI", "Node Identifier", ATValueType.String, 20)]
+        [AT("NI", "Node Identifier", ATValueType.NodeIdentifier, 20)]
         NodeIdentifier,
         [AT("SE", "Source Endpoint", ATVersion.S2, ATValueType.Number, 0xFF)]
         SourceEndpoint,
