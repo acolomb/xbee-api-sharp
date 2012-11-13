@@ -9,6 +9,15 @@ namespace XBee.Frames.ATCommands
         {
             ATCommand = atCommand;
             Description = description;
+            ATVersion = ATVersion.All;
+            ReturnValueType = type;
+        }
+
+        public ATAttribute(string atCommand, string description, ATVersion version, ATValueType type)
+        {
+            ATCommand = atCommand;
+            Description = description;
+            ATVersion = version;
             ReturnValueType = type;
         }
 
@@ -16,12 +25,23 @@ namespace XBee.Frames.ATCommands
         {
             ATCommand = atCommand;
             Description = description;
-            MaximumValue = maxValue;
+            ATVersion = ATVersion.All;
             ReturnValueType = type;
+            MaximumValue = maxValue;
+        }
+
+        public ATAttribute(string atCommand, string description, ATVersion version, ATValueType type, ulong maxValue)
+        {
+            ATCommand = atCommand;
+            Description = description;
+            ATVersion = version;
+            ReturnValueType = type;
+            MaximumValue = maxValue;
         }
 
         public string ATCommand { get; private set; }
         public string Description { get; private set; }
+        public ATVersion ATVersion { get; private set; }
         public ATValueType ReturnValueType { get; private set; }
         public ulong MaximumValue { get; private set; }
     }
