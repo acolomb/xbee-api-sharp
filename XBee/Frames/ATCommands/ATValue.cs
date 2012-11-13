@@ -13,6 +13,7 @@ namespace XBee.Frames.ATCommands
         NodeIdentifier,
         PanDescriptor,
         NodeDiscover,
+        NodeDiscoverZB,
     }
 
 
@@ -188,6 +189,70 @@ namespace XBee.Frames.ATCommands
             buffer = NodeIdentifier.ToByteArray();
             stream.Write(buffer, 0, buffer.Length);
             stream.WriteByte(0);
+
+            return stream.ToArray();
+        }
+    }
+
+
+
+    public class ATNodeDiscoverValueZB : ATNodeDiscoverValue
+    {
+        private const int minLength = 4+4+1+2+1+1+2+2;
+        
+        public XBeeAddress16 ParentAddress { get; set; }
+        public NodeIdentification.DeviceType DeviceType { get; set; }
+        public byte Status { get; set; }
+        public ATLongValue ProfileId { get; set; }
+        public ATLongValue ManufacturerId { get; set; }
+
+        public ATNodeDiscoverValueZB()
+        { }
+        
+        public override ATValue FromByteArray(byte[] value)
+        {
+            if (value.Length == 1 && value[0] == 0) //end of records
+                return new ATNodeDiscoverValue();//FIXME: is this sent from Series 2?
+            
+            if (value.Length < minLength)
+                throw new InvalidCastException("Node Discover Response has too few bytes.");
+            
+            var parser = new PacketParser(value);
+            
+            Source = new XBeeNode { Address64 = parser.ReadAddress64() };
+            NodeIdentifier = new ATNodeIdentifierValue(parser.ReadString());
+            ParentAddress = parser.ReadAddress16();
+            DeviceType = (NodeIdentification.DeviceType) parser.ReadByte();
+            Status = (byte) parser.ReadByte();
+            ProfileId = new ATLongValue(parser.ReadUInt16());
+            ManufacturerId = new ATLongValue(parser.ReadUInt16());
+
+            return this;
+        }
+        
+        public override byte[] ToByteArray()
+        {
+            var stream = new MemoryStream(minLength + NodeIdentifier.Value.Length);
+            
+            byte[] buffer;
+            buffer = Source.Address64.GetAddress();
+            stream.Write(buffer, 0, buffer.Length);
+            
+            buffer = NodeIdentifier.ToByteArray();
+            stream.Write(buffer, 0, buffer.Length);
+            stream.WriteByte(0);
+
+            buffer = ParentAddress.GetAddress();
+            stream.Write(buffer, 0, buffer.Length);
+
+            stream.WriteByte((byte) DeviceType);
+            stream.WriteByte(Status);
+
+            buffer = ProfileId.ToByteArray();
+            stream.Write(buffer, 0, buffer.Length);
+
+            buffer = ManufacturerId.ToByteArray();
+            stream.Write(buffer, 0, buffer.Length);
 
             return stream.ToArray();
         }
