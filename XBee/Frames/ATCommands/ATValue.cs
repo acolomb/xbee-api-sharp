@@ -67,15 +67,21 @@ namespace XBee.Frames.ATCommands
 
         private ulong ToInt(byte[] value)
         {
-            if (BitConverter.IsLittleEndian) Array.Reverse(value);
             switch (value.Length) {
                 case 1:
                     return value[0];
                 case 2:
-                    return BitConverter.ToUInt16(value, 0);
+                    return ((ulong) value[0] << 8 | value[1]);
+                case 3:
+                    var buffer = new byte[4] { 0, 0, 0, 0 };
+                    Array.Copy(value, 0, buffer, 1, 3);
+                    if (BitConverter.IsLittleEndian) Array.Reverse(buffer);
+                    return BitConverter.ToUInt32(buffer, 0);
                 case 4:
+                    if (BitConverter.IsLittleEndian) Array.Reverse(value);
                     return BitConverter.ToUInt32(value, 0);
                 case 8:
+                    if (BitConverter.IsLittleEndian) Array.Reverse(value);
                     return BitConverter.ToUInt64(value, 0);
                 default:
                     throw new InvalidCastException("Value has more bytes than a 64 bits integer.");
