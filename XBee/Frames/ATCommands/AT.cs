@@ -66,6 +66,7 @@ namespace XBee.Frames.ATCommands
 
     public enum AT
     {
+        // Addressing
         [AT("DH", "Destination Address High", ATValueType.Number, 0xFFFFFFFF)]
         DestinationHigh = 0x10000,
         [AT("DL", "Destination Address Low", ATValueType.Number, 0xFFFFFFFF)]
@@ -74,7 +75,7 @@ namespace XBee.Frames.ATCommands
         MyNetworkAddress,
         [AT("MP", "16-bit Parent Network Address", ATValueType.Number, 0xFFFE)]
         ParentAddress,
-        [AT("NC", "Number of Remaining Children", ATValueType.Number, 0)]
+        [AT("NC", "Number of Remaining Children", ATValueType.Number)]
         RemainingChildren,
         [AT("SH", "Serial Number High", ATValueType.Number, 0xFFFFFFFF)]
         SerialNumberHigh,
@@ -92,6 +93,8 @@ namespace XBee.Frames.ATCommands
         MaximumPayloadLenght,
         [AT("DD", "Device Type Identifier", ATValueType.Number, 0xFFFFFFFF)]
         DeviceTypeIdentifier,
+
+        // Networking
         [AT("CH", "Operating Channel", ATValueType.Number, 0x1A)]
         OperatingChannel,
         [AT("ID", "Extended PAN ID", ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
@@ -112,7 +115,7 @@ namespace XBee.Frames.ATCommands
         ScanChannels,
         [AT("SD", "Scan Duration", ATValueType.Number, 0x07)]
         ScanDuration,
-        [AT("ZS", "ZigBee Stack Profile", ATValueType.Number, 2)]
+        [AT("ZS", "ZigBee Stack Profile", ATValueType.Number, 0x02)]
         ZigBeeStackProfile,
         [AT("NJ", "Node Join Time", ATValueType.Number, 0xFF)]
         NodeJoinTime,
@@ -120,10 +123,12 @@ namespace XBee.Frames.ATCommands
         ChannelVerification,
         [AT("NW", "Network Watchdog Timeout", ATValueType.Number, 0x64FF)]
         NetworkWatchdogTimeout,
-        [AT("JN", "Join Notification", ATValueType.Number, 1)]
+        [AT("JN", "Join Notification", ATValueType.Number, 0x01)]
         JoinNotification,
         [AT("AR", "Aggregate Routing Notification", ATValueType.Number, 0xFF)]
         AggregateRoutingNotification,
+
+        // Security
         [AT("EE", "Encryption Enable", ATValueType.Number, 0x01)]
         EncryptionEnable,
         [AT("EO", "Encryption Options", ATValueType.Number, 0xFF)]
@@ -132,23 +137,27 @@ namespace XBee.Frames.ATCommands
         NetworkEncryptionKey,
         [AT("KY", "Link Encryption Key", ATValueType.None)]
         LinkEncryptionKey,
+
+        // RF Interfacing
         [AT("PL", "Power Level", ATValueType.Number, 0x04)]
         PowerLevel,
-        [AT("PM", "Power Mode", ATValueType.Number, 1)]
+        [AT("PM", "Power Mode", ATValueType.Number, 0x01)]
         PowerMode,
         [AT("DB", "Received Signal Strength", ATValueType.Number)]
         ReceivedSignalStrength,
         [AT("PP", "Peak Power", ATValueType.Number, 0x12)]
         PeakPower,
+
+        // Serial Interfacing
         [AT("AP", "API Enable", ATValueType.Number, 0x02)]
         ApiEnable,
-        [AT("AO", "API Options", ATValueType.Number, 3)]
+        [AT("AO", "API Options", ATValueType.Number, 0x03)]
         ApiOptions,
         [AT("BD", "Interface Data Rate", ATValueType.Number, 0xE1000)]
         BaudRate,
         [AT("NB", "Serial Parity", ATValueType.Number, 0x03)]
         Parity,
-        [AT("SB", "Stop Bits", ATValueType.Number, 1)]
+        [AT("SB", "Stop Bits", ATValueType.Number, 0x01)]
         StopBits,
         [AT("RO", "Packetization Timeout", ATValueType.Number, 0xFF)]
         PacketizationTimeout,
@@ -156,6 +165,8 @@ namespace XBee.Frames.ATCommands
         DigitalIO7,
         [AT("D6", "DIO6 Configuration", ATValueType.Number, 0x05)]
         DigitalIO6,
+
+        // I/O Commands
         [AT("IR", "IO Sample Rate", ATValueType.Number, 0xFFFF)]
         IOSampleRate,
         [AT("IC", "IO Digital Change Detection", ATValueType.Number, 0x0FFF)]
@@ -194,12 +205,16 @@ namespace XBee.Frames.ATCommands
         VoltageMonitoring,
         [AT("TP", "Reads the module temperature in Degrees Celsius", ATValueType.Number, 0xFFFF)]
         Temperature,
+
+        // Diagnostics
         [AT("VR", "Firmware Version", ATValueType.Number, 0xFFFF)]
         FirmwareVersion,
         [AT("HV", "Hardware Version", ATValueType.Number, 0xFFFF)]
         HardwareVersion,
         [AT("AI", "Association Indication", ATValueType.Number, 0xFF)]
         AssociationIndication,
+
+        // AT Command Options
         [AT("CT", "Command Mode Timeout", ATValueType.Number, 0x028F)]
         CommandModeTimeout,
         [AT("CN", "Exit Command Mode", ATValueType.None)]
@@ -208,6 +223,8 @@ namespace XBee.Frames.ATCommands
         GuardTimes,
         [AT("CC", "Command Sequence Character", ATValueType.Number, 0xFF)]
         CommandSequenceCharacter,
+        
+        // Sleep Commands
         [AT("SM", "Sleep Mode", ATValueType.Number, 0x05)]
         SleepMode,
         [AT("SN", "Number of Sleep Periods", ATValueType.Number, 0xFFFF)]
@@ -220,8 +237,12 @@ namespace XBee.Frames.ATCommands
         SleepOptions,
         [AT("WH", "Wake Host", ATValueType.Number, 0xFFFF)]
         WakeHost,
+        [AT("SI", "Sleep Immediately", ATValueType.None)]
+        SleepImmediately,
         [AT("PO", "Polling Rate", ATValueType.Number, 0x3E8)]
         PollingRate,
+
+        // Execution Commands
         [AT("AC", "Apply Changes", ATValueType.None)]
         ApplyChanges,
         [AT("WR", "Write", ATValueType.None)]
@@ -232,8 +253,6 @@ namespace XBee.Frames.ATCommands
         SoftwareReset,
         [AT("NR", "Network Reset", ATValueType.Number, 0x01)]
         NetworkReset,
-        [AT("SI", "Sleep Immediately", ATValueType.None)]
-        SleepImmediately,
         [AT("CB", "Commissioning Pushbutton", ATValueType.None)]
         CommissioningPushButton,
         [AT("ND", "Node Discover", ATValueType.NodeDiscoverZB)]
@@ -244,6 +263,8 @@ namespace XBee.Frames.ATCommands
         ForceSample,
         [AT("1S", "XBee Sensor Sample", ATValueType.None)]
         SensorSample,
+
+        // invalid value
         [AT("", "Unknown AT Command", ATValueType.None)]
         Unknown
     }
