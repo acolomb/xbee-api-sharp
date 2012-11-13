@@ -196,7 +196,7 @@ namespace XBee.Frames.ATCommands
 
 
 
-    public class ATNodeDiscoverValueZB : ATNodeDiscoverValue
+    public class ATNodeDiscoverZBValue : ATNodeDiscoverValue
     {
         private const int minLength = 4+4+1+2+1+1+2+2;
         
@@ -206,7 +206,7 @@ namespace XBee.Frames.ATCommands
         public ATLongValue ProfileId { get; set; }
         public ATLongValue ManufacturerId { get; set; }
 
-        public ATNodeDiscoverValueZB()
+        public ATNodeDiscoverZBValue()
         { }
         
         public override ATValue FromByteArray(byte[] value)
