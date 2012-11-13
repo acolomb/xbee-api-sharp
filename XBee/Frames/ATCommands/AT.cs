@@ -127,6 +127,10 @@ namespace XBee.Frames.ATCommands
         JoinNotification,
         [AT("AR", "Aggregate Routing Notification", ATValueType.Number, 0xFF)]
         AggregateRoutingNotification,
+        [AT("DJ", "Disable Joining", ATValueType.Number, 0x01)]
+        DisableJoining,
+        [AT("II", "Initial ID", ATValueType.Number, 0xFFFF)]
+        InitialID,
 
         // Security
         [AT("EE", "Encryption Enable", ATValueType.Number, 0x01)]
