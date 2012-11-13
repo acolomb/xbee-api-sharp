@@ -52,36 +52,31 @@ namespace XBee.Frames
             var type = ((ATAttribute) Command.GetAttr()).ReturnValueType;
 
             if (parser.HasMoreData()) {
+                byte[] buffer = parser.ReadData();
+
                 switch (type) {
                     case ATValueType.None:
                         break;
                     case ATValueType.Number:
-                        var vData = parser.ReadData();
-                        Value = new ATLongValue().FromByteArray(vData);
+                        Value = new ATLongValue().FromByteArray(buffer);
                         break;
                     case ATValueType.HexString:
-                        var hexData = parser.ReadData();
-                        Value = new ATStringValue(ByteUtils.ToBase16(hexData));
+                        Value = new ATStringValue(ByteUtils.ToBase16(buffer));
                         break;
                     case ATValueType.String:
-                        var str = parser.ReadData();
-                        Value = new ATStringValue(Encoding.UTF8.GetString(str));
+                        Value = new ATStringValue(Encoding.UTF8.GetString(buffer));
                         break;
                     case ATValueType.NodeIdentifier:
-                        var node = parser.ReadData();
-                        Value = new ATNodeIdentifierValue().FromByteArray(node);
+                        Value = new ATNodeIdentifierValue().FromByteArray(buffer);
                         break;
                     case ATValueType.PanDescriptor:
-                        var desc = parser.ReadData();
-                        Value = new ATPanDescriptorValue().FromByteArray(desc);
+                        Value = new ATPanDescriptorValue().FromByteArray(buffer);
                         break;
                     case ATValueType.NodeDiscover:
-                        var discovered = parser.ReadData();
-                        Value = new ATNodeDiscoverValue().FromByteArray(discovered);
+                        Value = new ATNodeDiscoverValue().FromByteArray(buffer);
                         break;
                     case ATValueType.NodeDiscoverZB:
-                        var discoveredZb = parser.ReadData();
-                        Value = new ATNodeDiscoverZBValue().FromByteArray(discoveredZb);
+                        Value = new ATNodeDiscoverZBValue().FromByteArray(buffer);
                         break;
                 }
             }
