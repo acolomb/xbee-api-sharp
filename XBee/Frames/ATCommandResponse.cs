@@ -49,9 +49,6 @@ namespace XBee.Frames
 
         protected void ParseValue()
         {
-            if (Command == AT.NodeDiscover)
-                ParseNetworkDiscovery();
-
             var type = ((ATAttribute) Command.GetAttr()).ReturnValueType;
 
             if (parser.HasMoreData()) {
@@ -70,21 +67,24 @@ namespace XBee.Frames
                         var str = parser.ReadData();
                         Value = new ATStringValue(Encoding.UTF8.GetString(str));
                         break;
+                    case ATValueType.NodeIdentifier:
+                        var node = parser.ReadData();
+                        Value = new ATNodeIdentifierValue().FromByteArray(node);
+                        break;
+                    case ATValueType.PanDescriptor:
+                        var desc = parser.ReadData();
+                        Value = new ATPanDescriptorValue().FromByteArray(desc);
+                        break;
+                    case ATValueType.NodeDiscover:
+                        var discovered = parser.ReadData();
+                        Value = new ATNodeDiscoverValue().FromByteArray(discovered);
+                        break;
+                    case ATValueType.NodeDiscoverZB:
+                        var discoveredZb = parser.ReadData();
+                        Value = new ATNodeDiscoverZBValue().FromByteArray(discoveredZb);
+                        break;
                 }
             }
-        }
-
-        private void ParseNetworkDiscovery()
-        {
-            var source = new XBeeNode { Address16 = parser.ReadAddress16(), Address64 = parser.ReadAddress64() };
-            var nodeIdentifier = parser.ReadString();
-            var parentAddress = parser.ReadAddress16();
-            var type = (NodeIdentification.DeviceType) parser.ReadByte();
-            var status = parser.ReadByte();
-            var profileId = parser.ReadUInt16();
-            var manufacturerId = parser.ReadUInt16();
-
-            Console.WriteLine(string.Format("source {0}, id {1}, status {2}", source.Address64, nodeIdentifier, status));
         }
     }
 }

@@ -212,7 +212,7 @@ namespace XBee.Frames.ATCommands
         SleepImmediately,
         [AT("CB", "Commissioning Pushbutton", ATValueType.None)]
         CommissioningPushButton,
-        [AT("ND", "Node Discover", ATValueType.Number)]
+        [AT("ND", "Node Discover", ATValueType.NodeDiscoverZB)]
         NodeDiscover,
         [AT("DN", "Destination Node", ATValueType.Number)]
         DestinationNode,
