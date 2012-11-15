@@ -16,6 +16,10 @@ namespace XBee.Frames
         public uint[] AnalogSamples { get; private set; }
         public uint SupplyVoltage { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public ZigBeeIODataSample(PacketParser parser)
         {
             this.parser = parser;

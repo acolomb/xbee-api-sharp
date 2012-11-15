@@ -42,6 +42,10 @@ namespace XBee.Frames
         public DeliveryStatusType DeliveryStatus;
         public DiscoveryStatusType DiscoveryStatus;
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+
         public ZigBeeTransmitStatus(PacketParser parser)
         {
             this.parser = parser;

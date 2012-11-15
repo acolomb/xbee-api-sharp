@@ -18,6 +18,10 @@ namespace XBee.Frames
         public byte BroadcastRadius { get; set; }
         public OptionValues Options { get; set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S1; }
+        }
+        
         public TransmitRequest16(XBeeNode destination)
         {
             CommandId = XBeeAPICommandId.TRANSMIT_REQUEST_16;

@@ -17,6 +17,10 @@ namespace XBee.Frames
 
         public StatusType Status;
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S1; }
+        }
+        
         public TransmitStatus(PacketParser parser)
         {
             this.parser = parser;

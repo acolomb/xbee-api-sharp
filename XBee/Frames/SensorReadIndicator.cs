@@ -20,6 +20,10 @@ namespace XBee.Frames
         public ushort[] ADValues { get; private set; }
         public ushort Temperature { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public SensorReadIndicator(PacketParser parser)
         {
             this.parser = parser;

@@ -20,6 +20,10 @@ namespace XBee.Frames
         public int BlockNumber { get; private set; }
         public XBeeAddress64 Target { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public OverAirUpdateStatus(PacketParser parser)
         {
             this.parser = parser;

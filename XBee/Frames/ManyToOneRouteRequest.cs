@@ -7,6 +7,10 @@ namespace XBee.Frames
 
         public XBeeNode Source { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public ManyToOneRouteRequest(PacketParser parser)
         {
             this.parser = parser;

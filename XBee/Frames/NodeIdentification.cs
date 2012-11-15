@@ -30,6 +30,10 @@ namespace XBee.Frames
         public UInt16 ProfileId { get; private set; }
         public UInt16 ManufacturerId { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public NodeIdentification(PacketParser parser)
         {
             this.parser = parser;

@@ -15,6 +15,10 @@ namespace XBee.Frames
         public ReceiveOptionsType ReceiveOptions { get; private set; }
         public byte[] Data { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public ZigBeeExplicitRXIndicator(PacketParser parser)
         {
             this.parser = parser;

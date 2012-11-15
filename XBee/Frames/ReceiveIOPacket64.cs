@@ -39,6 +39,10 @@ namespace XBee.Frames
         public BitVector32[] DigitalSamples { get; protected set; }
         public UInt16[][] AnalogSamples { get; protected set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S1; }
+        }
+        
         public ReceiveIOPacket64(PacketParser parser)
         {
             this.parser = parser;

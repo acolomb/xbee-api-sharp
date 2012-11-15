@@ -11,6 +11,10 @@ namespace XBee.Frames
         public int NumberOfHops { get; private set; }
         public List<XBeeAddress16> Addresses { get; private set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public RouteRecordIndicator(PacketParser parser)
         {
             this.parser = parser;

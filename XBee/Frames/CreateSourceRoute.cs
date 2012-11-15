@@ -12,6 +12,10 @@ namespace XBee.Frames
         public byte RouteOptions { get; set; }
         public List<XBeeAddress16> Hops { get; set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S2; }
+        }
+        
         public CreateSourceRoute(PacketParser parser)
         {
             this.parser = parser;

@@ -9,6 +9,10 @@ namespace XBee.Frames
         public ReceiveOptionsType ReceiveOptions { get; protected set; }
         public byte[] Data { get; protected set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get { return ApiVersion.S1; }
+        }
+        
         public ReceivePacket64(PacketParser parser)
         {
             this.parser = parser;
