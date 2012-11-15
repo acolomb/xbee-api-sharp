@@ -48,11 +48,11 @@ namespace XBee
             return new XBeeAddress16(BitConverter.ToUInt16(addr, 0));
         }
 
-        public AT ReadATCommand()
+        public AT ReadATCommand(ApiVersion apiVersion = ApiVersion.Unknown)
         {
             var cmd = ReadIntoBuffer<AT>(2);
   
-            return ATUtil.Parse(Encoding.ASCII.GetString(cmd));
+            return ATUtil.Parse(Encoding.ASCII.GetString(cmd), apiVersion);
         }
 
         public int ReadByte()

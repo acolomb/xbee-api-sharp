@@ -50,10 +50,13 @@ namespace XBee.Frames.ATCommands
 
     public class ATUtil
     {
-        public static AT Parse(string value)
+        public static AT Parse(string value, ApiVersion apiVersion = ApiVersion.Unknown)
         {
             var atCommands = (AT[])Enum.GetValues(typeof(AT));
-            var cmd = Array.Find(atCommands, at => ((ATAttribute)at.GetAttr()).ATCommand == value);
+            var cmd = Array.Find(atCommands, at => {
+                var attribute = (ATAttribute) at.GetAttr();
+                return (attribute.ATCommand == value)
+                    && (attribute.ApiVersion & apiVersion) == apiVersion; });
 
             if (cmd == 0)
                 return AT.Unknown;
