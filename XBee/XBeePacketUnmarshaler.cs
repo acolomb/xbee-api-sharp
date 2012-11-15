@@ -67,7 +67,8 @@ namespace XBee
             if (framesMap.ContainsKey(cmd)) {
                 frame = (XBeeFrame) Activator.CreateInstance(framesMap[cmd], new PacketParser(dataStream));
                 if (! frame.UseApiVersion(apiVersion)) 
-                    throw new XBeeFrameException(String.Format("Cannot parse frame according to specified API version {0}.", apiVersion));
+                    throw new XBeeFrameException(String.Format("Cannot parse {0} frame according to specified API version {1}.",
+                                                               framesMap[cmd], apiVersion));
                 frame.Parse();
             } else {
                 throw new XBeeFrameException(String.Format("Unsupported Command Id 0x{0:X2}", cmd));
