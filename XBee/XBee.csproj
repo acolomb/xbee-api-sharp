@@ -69,7 +69,6 @@
     <Compile Include="Frames\ATCommandResponse.cs" />
     <Compile Include="Frames\ExplicitAddressingTransmit.cs" />
     <Compile Include="Frames\NodeIdentification.cs" />
-    <Compile Include="Frames\TransmitDataRequest.cs" />
     <Compile Include="Frames\ZigBeeExplicitRXIndicator.cs" />
     <Compile Include="PacketReader.cs" />
     <Compile Include="Utils\ByteUtils.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Frames\ATCommands\ATValue.cs" />
     <Compile Include="Exceptions\XBeeProtocolException.cs" />
     <Compile Include="ApiVersion.cs" />
+    <Compile Include="Frames\ZigBeeTransmitRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

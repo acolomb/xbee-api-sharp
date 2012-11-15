@@ -19,7 +19,7 @@ namespace XBee
                 {
                     {XBeeAPICommandId.AT_COMMAND_REQUEST, typeof (ATCommand)},
                     {XBeeAPICommandId.AT_COMMAND_QUEUE_REQUEST, typeof (ATQueueCommand)},
-                    {XBeeAPICommandId.TRANSMIT_DATA_REQUEST, typeof (TransmitDataRequest)},
+                    {XBeeAPICommandId.TRANSMIT_DATA_REQUEST, typeof (ZigBeeTransmitRequest)},
                     {XBeeAPICommandId.EXPLICIT_ADDR_REQUEST, typeof (ExplicitAddressingTransmit)},
                     {XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST, typeof (RemoteATCommand)},
                     {XBeeAPICommandId.CREATE_SOURCE_ROUTE, typeof (CreateSourceRoute)},

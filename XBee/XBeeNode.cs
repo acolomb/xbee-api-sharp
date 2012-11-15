@@ -9,7 +9,7 @@ namespace XBee
 
         public void SendData(byte[] data)
         {
-            var frame = new TransmitDataRequest(this);
+            var frame = new ZigBeeTransmitRequest(this);
         }
     }
 }

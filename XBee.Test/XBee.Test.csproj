@@ -62,7 +62,6 @@
     <Compile Include="Frames\RemoteCommandResponseTest.cs" />
     <Compile Include="Frames\RouteRecordIndicatorTest.cs" />
     <Compile Include="Frames\SensorReadIndicatorTest.cs" />
-    <Compile Include="Frames\TransmitDataRequestTest.cs" />
     <Compile Include="Frames\ZigBeeExplicitRXIndicatorTest.cs" />
     <Compile Include="Frames\ZigBeeIODataSampleTest.cs" />
     <Compile Include="Frames\ZigBeeReceivePacketTest.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="XBeeTest.cs" />
     <Compile Include="XBeeUnmarshalerTest.cs" />
     <Compile Include="XBeeChecksumTest.cs" />
+    <Compile Include="Frames\ZigBeeTransmitRequestTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XBee\XBee.csproj">
