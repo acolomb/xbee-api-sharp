@@ -16,13 +16,20 @@ namespace XBee
         private static Dictionary<XBeeAPICommandId, Type> CreateFramesMap()
         {
             var map = new Dictionary<XBeeAPICommandId, Type> {
+                {XBeeAPICommandId.REQUEST_64,                           typeof (TransmitRequest64)},
+                {XBeeAPICommandId.REQUEST_16,                           typeof (TransmitRequest16)},
                 {XBeeAPICommandId.AT_COMMAND_REQUEST,                   typeof (ATCommand)},
                 {XBeeAPICommandId.AT_COMMAND_QUEUE_REQUEST,             typeof (ATQueueCommand)},
                 {XBeeAPICommandId.TRANSMIT_DATA_REQUEST,                typeof (ZigBeeTransmitRequest)},
                 {XBeeAPICommandId.EXPLICIT_ADDR_REQUEST,                typeof (ExplicitAddressingTransmit)},
                 {XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST,            typeof (RemoteATCommand)},
                 {XBeeAPICommandId.CREATE_SOURCE_ROUTE,                  typeof (CreateSourceRoute)},
+                {XBeeAPICommandId.RECEIVE_64_RESPONSE,                  typeof (ReceivePacket64)},
+                {XBeeAPICommandId.RECEIVE_16_RESPONSE,                  typeof (ReceivePacket16)},
+                {XBeeAPICommandId.RECEIVE_64_IO_RESPONSE,               typeof (ReceiveIOPacket64)},
+                {XBeeAPICommandId.RECEIVE_16_IO_RESPONSE,               typeof (ReceiveIOPacket16)},
                 {XBeeAPICommandId.AT_COMMAND_RESPONSE,                  typeof (ATCommandResponse)},
+                {XBeeAPICommandId.TX_STATUS_RESPONSE,                   typeof (TransmitStatus)},
                 {XBeeAPICommandId.MODEM_STATUS_RESPONSE,                typeof (ModemStatus)},
                 {XBeeAPICommandId.TRANSMIT_STATUS_RESPONSE,             typeof (ZigBeeTransmitStatus)},
                 {XBeeAPICommandId.RECEIVE_PACKET_RESPONSE,              typeof (ZigBeeReceivePacket)},

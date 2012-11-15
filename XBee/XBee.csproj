@@ -90,6 +90,13 @@
     <Compile Include="Exceptions\XBeeProtocolException.cs" />
     <Compile Include="ApiVersion.cs" />
     <Compile Include="Frames\ZigBeeTransmitRequest.cs" />
+    <Compile Include="Frames\TransmitRequest64.cs" />
+    <Compile Include="Frames\TransmitRequest16.cs" />
+    <Compile Include="Frames\ReceivePacket16.cs" />
+    <Compile Include="Frames\ReceivePacket64.cs" />
+    <Compile Include="Frames\ReceiveIOPacket64.cs" />
+    <Compile Include="Frames\ReceiveIOPacket16.cs" />
+    <Compile Include="Frames\TransmitStatus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
