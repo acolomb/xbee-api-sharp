@@ -19,6 +19,7 @@ namespace XBee.Frames
         protected readonly PacketParser parser;
 
         public AT Command { get; protected set; }
+        public ApiVersion ExpectedApi { get; set; }
         public ATValue Value { get; protected set; }
         public CommandStatusType CommandStatus { get; protected set; }
 
@@ -38,10 +39,16 @@ namespace XBee.Frames
             return new byte[] { };
         }
 
+        public override bool UseApiVersion(ApiVersion requested)
+        {
+            ExpectedApi = requested;
+            return base.UseApiVersion(requested);
+        }
+
         public override void Parse()
         {
             FrameId = (byte)parser.ReadByte();
-            Command = parser.ReadATCommand();
+            Command = parser.ReadATCommand(ExpectedApi);
             CommandStatus = (CommandStatusType)parser.ReadByte();
 
             ParseValue();

@@ -24,7 +24,7 @@ namespace XBee.Frames
         {
             FrameId = (byte) parser.ReadByte();
             Source = new XBeeNode { Address64 = parser.ReadAddress64(), Address16 = parser.ReadAddress16() };
-            Command = parser.ReadATCommand();
+            Command = parser.ReadATCommand(ExpectedApi);
             CommandStatus = (CommandStatusType) parser.ReadByte();
 
             ParseValue();
