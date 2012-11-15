@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using XBee.Exceptions;
 
 namespace XBee
 {
@@ -8,8 +9,11 @@ namespace XBee
         private readonly byte[] frameData;
         public byte[] Data { get; private set; }
 
-        public XBeePacket(XBeeFrame frame)
+        public XBeePacket(XBeeFrame frame, ApiVersion apiVersion = ApiVersion.Unknown)
         {
+            if (! frame.UseApiVersion(apiVersion))
+                throw new XBeeFrameException(String.Format("Unsupported frame type {0} for specified API version {1}.",
+                                                           frame.GetType(), apiVersion));
             frameData = frame.ToByteArray();
         }
 
