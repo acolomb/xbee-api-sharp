@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Frames;
 
 namespace XBee.Test.Frames
@@ -11,7 +12,7 @@ namespace XBee.Test.Frames
         {
             var packet = new byte[] { 0x00, 0x16, 0xA0, 0x00, 0x13, 0xA2, 0x00, 0x40, 0x3E, 0x07, 0x50, 0x00, 0x00, 0x01, 0x52, 0x00, 0x00, 0x13, 0xA2, 0x00, 0x40, 0x52, 0x2B, 0xAA, 0x66 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<OverAirUpdateStatus>());
 
             var cmd = (OverAirUpdateStatus)frame;

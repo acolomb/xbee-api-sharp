@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Frames;
 
 namespace XBee.Test.Frames
@@ -10,7 +11,7 @@ namespace XBee.Test.Frames
         public void TestManyToOneRouteRequestParse()
         {
             var packet = new byte[] { 0x00, 0x0C, 0xA3, 0x00, 0x13, 0xA2, 0x00, 0x40, 0x40, 0x11, 0x22, 0x00, 0x00, 0x00, 0xF4 };
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<ManyToOneRouteRequest>());
 
             var cmd = (ManyToOneRouteRequest)frame;

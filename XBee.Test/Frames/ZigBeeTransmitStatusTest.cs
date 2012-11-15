@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Frames;
 
 namespace XBee.Test.Frames
@@ -10,7 +11,7 @@ namespace XBee.Test.Frames
         public void TestTransmitStatusParse()
         {
             var packet = new byte[] { 0x00, 0x07, 0x8B, 0x01, 0x7D, 0x84, 0x00, 0x00, 0x01, 0x71 };
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<ZigBeeTransmitStatus>());
 
             var cmd = (ZigBeeTransmitStatus) frame;

@@ -40,7 +40,7 @@ namespace XBee
             return map;
         }
 
-        public static XBeeFrame Unmarshal(byte[] packetData)
+        public static XBeeFrame Unmarshal(byte[] packetData, ApiVersion apiVersion)
         {
             XBeeFrame frame;
             var length = (uint) (packetData[0] << 8 | packetData[1]);
@@ -60,6 +60,7 @@ namespace XBee
 
             if (framesMap.ContainsKey(cmd)) {
                 frame = (XBeeFrame) Activator.CreateInstance(framesMap[cmd], new PacketParser(dataStream));
+                if (! frame.UseApiVersion(apiVersion)) logger.Warn("Cannot parse frame according to specified API version.");
                 frame.Parse();
             } else {
                 throw new XBeeFrameException(String.Format("Unsupported Command Id 0x{0:X2}", cmd));

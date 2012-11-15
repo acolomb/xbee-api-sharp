@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Frames;
 using XBee.Frames.ATCommands;
 
@@ -12,7 +13,7 @@ namespace XBee.Test.Frames
         {
             var packet = new byte[] { 0x00, 0x13, 0x97, 0x55, 0x00, 0x13, 0xA2, 0x00, 0x40, 0x52, 0x2B, 0xAA, 0x7D, 0x84, 0x53, 0x4C, 0x00, 0x40, 0x52, 0x2B, 0xAA, 0xF0 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<RemoteCommandResponse>());
 
             var cmd = (RemoteCommandResponse)frame;

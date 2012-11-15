@@ -47,7 +47,7 @@ namespace XBee.Test
         public void TestXBeeUnmarshalerATCommandWrongLength()
         {
             var packetData = new byte[] { 0x00, 0x08, 0x08, 0x01, (byte) 'D', (byte) 'H' };
-            Assert.Throws<XBeeFrameException>(delegate { XBeeFrame frame = XBeePacketUnmarshaler.Unmarshal(packetData); });
+            Assert.Throws<XBeeFrameException>(delegate { XBeeFrame frame = XBeePacketUnmarshaler.Unmarshal(packetData, ApiVersion.S1); });
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace XBee.Test
         {
             var packetData = new byte[] { 0x00, 0x04, 0x08, 0x01, (byte) 'D', (byte) 'H', 0x6A };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packetData);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packetData, ApiVersion.S1);
             Assert.That(frame, Is.InstanceOf<ATCommand>());
             var cmd = (ATCommand) frame;
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));
@@ -67,7 +67,7 @@ namespace XBee.Test
         {
             var packetData = new byte[] { 0x00, 0x08, 0x08, 0x01, (byte) 'D', (byte) 'H', 0x11, 0x22, 0x33, 0x00, 0x04 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packetData);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packetData, ApiVersion.S1);
             Assert.That(frame, Is.InstanceOf<ATCommand>());
             var cmd = (ATCommand) frame;
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));

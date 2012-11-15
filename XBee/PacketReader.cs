@@ -53,7 +53,7 @@ namespace XBee
         {
             logger.Debug("API frame complete: [" + ByteUtils.ToBase16(Stream.ToArray()) + "]");
             try {
-                var frame = XBeePacketUnmarshaler.Unmarshal(Stream.ToArray());
+                var frame = XBeePacketUnmarshaler.Unmarshal(Stream.ToArray(), ApiVersion);
                 packetLength = 0;
                 if (FrameReceived != null)
                     FrameReceived.Invoke(this, new FrameReceivedArgs(frame));

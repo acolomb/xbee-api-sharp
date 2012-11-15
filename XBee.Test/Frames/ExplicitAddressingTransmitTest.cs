@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Exceptions;
 using XBee.Frames;
 
@@ -37,7 +38,7 @@ namespace XBee.Test.Frames
                     0x05, 0x02, 0x41, 0x3F
                 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<ExplicitAddressingTransmit>());
             var cmd = (ExplicitAddressingTransmit) frame;
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));

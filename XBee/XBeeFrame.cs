@@ -6,6 +6,13 @@ namespace XBee
         public byte FrameId { get; set; }
 
         public abstract byte[] ToByteArray();
+
+        public bool UseApiVersion(ApiVersion apiVersion)
+        {
+            // assume unchanged support for all API versions
+            return true;
+        }
+
         public abstract void Parse();
     }
 }

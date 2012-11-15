@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using XBee;
 using XBee.Frames;
 using XBee.Frames.ATCommands;
 
@@ -12,7 +13,7 @@ namespace XBee.Test.Frames
         {
             var packet = new byte[] { 0x00, 0x05, 0x88, 0x01, 0x42, 0x44, 0x00, 0xF0 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S1);
             Assert.That(frame, Is.InstanceOf<ATCommandResponse>());
 
             var cmd = (ATCommandResponse) frame;
@@ -31,7 +32,7 @@ namespace XBee.Test.Frames
                     0x1E, 0xC7
                 };
 
-            var frame = XBeePacketUnmarshaler.Unmarshal(packet);
+            var frame = XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S2);
             Assert.That(frame, Is.InstanceOf<ATCommandResponse>());
         }
     }
