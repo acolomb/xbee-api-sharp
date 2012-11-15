@@ -4,15 +4,23 @@ namespace XBee
     {
         public XBeeAPICommandId CommandId { get; protected set; }
         public byte FrameId { get; set; }
+        public virtual ApiVersion SupportedApiVersions
+        {
+            get { return ApiVersion.All; } // assume unconditional support for all API versions
+        }
 
         public abstract byte[] ToByteArray();
 
-        public bool UseApiVersion(ApiVersion apiVersion)
+        public virtual bool UseApiVersion(ApiVersion requested)
         {
-            // assume unchanged support for all API versions
-            return true;
+            return TestApiVersion(requested);
         }
 
         public abstract void Parse();
+
+        protected bool TestApiVersion(ApiVersion requested)
+        {
+            return (SupportedApiVersions & requested) == requested;
+        }
     }
 }
