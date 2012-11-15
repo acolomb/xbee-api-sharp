@@ -6,5 +6,6 @@ namespace XBee
     {
         event FrameReceivedHandler FrameReceived;
         void ReceiveData(byte[] data);
+        ApiVersion ApiVersion { get; set; }
     }
 }

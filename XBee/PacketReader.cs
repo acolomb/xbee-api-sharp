@@ -14,6 +14,8 @@ namespace XBee
         protected MemoryStream Stream = new MemoryStream();
         private uint packetLength = 0;
 
+        public ApiVersion ApiVersion { get; set; }
+
         public void ReceiveData(byte[] data)
         {
             if (packetLength == 0 && data[0] == (byte) XBeeSpecialBytes.StartByte) {
