@@ -26,7 +26,12 @@ namespace XBee
         private bool frameReceived = false;
         private XBeeFrame lastFrame = null;
         private IPacketReader reader;
-        private ApiTypeValue apiType;
+        private ApiTypeValue apiType = ApiTypeValue.Enabled;
+
+        public XBee()
+        {
+            reader = PacketReaderFactory.GetReader(apiType);
+        }
 
         public ApiTypeValue ApiType
         {
