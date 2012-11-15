@@ -44,6 +44,12 @@ namespace XBee
             }
         }
 
+        public ApiVersion ApiVersion
+        {
+            get { return reader.ApiVersion; }
+            set { reader.ApiVersion = value; }
+        }
+        
         public void SetConnection(IXBeeConnection connection)
         {
             this.connection = connection;
