@@ -15,7 +15,6 @@ namespace XBee.Frames
         private readonly XBeeNode destination;
         private byte[] rfData;
 
-        public byte BroadcastRadius { get; set; }
         public OptionValues Options { get; set; }
 
         public override ApiVersion SupportedApiVersions {
@@ -42,7 +41,7 @@ namespace XBee.Frames
             stream.WriteByte((byte)CommandId);
             stream.WriteByte(FrameId);
 
-            stream.Write(destination.Address64.GetAddress(), 0, 8);
+            WriteAddress(stream, destination);
 
             stream.WriteByte((byte)Options);
 
@@ -51,6 +50,11 @@ namespace XBee.Frames
             }
 
             return stream.ToArray();
+        }
+
+        protected virtual void WriteAddress(MemoryStream stream, XBeeNode dest)
+        {
+            stream.Write(dest.Address64.GetAddress(), 0, 8);
         }
 
         public override void Parse()
