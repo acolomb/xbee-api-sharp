@@ -9,15 +9,15 @@ namespace XBee.Frames.ATCommands
         {
             ATCommand = atCommand;
             Description = description;
-            ATVersion = ATVersion.All;
+            ApiVersion = ApiVersion.All;
             ReturnValueType = type;
         }
 
-        public ATAttribute(string atCommand, string description, ATVersion version, ATValueType type)
+        public ATAttribute(string atCommand, string description, ApiVersion version, ATValueType type)
         {
             ATCommand = atCommand;
             Description = description;
-            ATVersion = version;
+            ApiVersion = version;
             ReturnValueType = type;
         }
 
@@ -25,23 +25,23 @@ namespace XBee.Frames.ATCommands
         {
             ATCommand = atCommand;
             Description = description;
-            ATVersion = ATVersion.All;
+            ApiVersion = ApiVersion.All;
             ReturnValueType = type;
             MaximumValue = maxValue;
         }
 
-        public ATAttribute(string atCommand, string description, ATVersion version, ATValueType type, ulong maxValue)
+        public ATAttribute(string atCommand, string description, ApiVersion version, ATValueType type, ulong maxValue)
         {
             ATCommand = atCommand;
             Description = description;
-            ATVersion = version;
+            ApiVersion = version;
             ReturnValueType = type;
             MaximumValue = maxValue;
         }
 
         public string ATCommand { get; private set; }
         public string Description { get; private set; }
-        public ATVersion ATVersion { get; private set; }
+        public ApiVersion ApiVersion { get; private set; }
         public ATValueType ReturnValueType { get; private set; }
         public ulong MaximumValue { get; private set; }
     }
@@ -73,9 +73,9 @@ namespace XBee.Frames.ATCommands
         DestinationLow,
         [AT("MY", "16-bit Network Address", ATValueType.Number, 0xFFFE)]
         MyNetworkAddress,
-        [AT("MP", "16-bit Parent Network Address", ATVersion.S2, ATValueType.Number, 0xFFFE)]
+        [AT("MP", "16-bit Parent Network Address", ApiVersion.S2, ATValueType.Number, 0xFFFE)]
         ParentAddress,
-        [AT("NC", "Number of Remaining Children", ATVersion.S2, ATValueType.Number)]
+        [AT("NC", "Number of Remaining Children", ApiVersion.S2, ATValueType.Number)]
         RemainingChildren,
         [AT("SH", "Serial Number High", ATValueType.Number, 0xFFFFFFFF)]
         SerialNumberHigh,
@@ -83,29 +83,29 @@ namespace XBee.Frames.ATCommands
         SerialNumberLow,
         [AT("NI", "Node Identifier", ATValueType.NodeIdentifier, 20)]
         NodeIdentifier,
-        [AT("SE", "Source Endpoint", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("SE", "Source Endpoint", ApiVersion.S2, ATValueType.Number, 0xFF)]
         SourceEndpoint,
-        [AT("DE", "Destination Endpoint", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("DE", "Destination Endpoint", ApiVersion.S2, ATValueType.Number, 0xFF)]
         DestinationEndpoint,
-        [AT("CI", "Cluster Identifier", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("CI", "Cluster Identifier", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         ClusterIdentifier,
-        [AT("NP", "Maximum RF Payload Bytes", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("NP", "Maximum RF Payload Bytes", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         MaximumPayloadLength,
-        [AT("DD", "Device Type Identifier", ATVersion.S2, ATValueType.Number, 0xFFFFFFFF)]
+        [AT("DD", "Device Type Identifier", ApiVersion.S2, ATValueType.Number, 0xFFFFFFFF)]
         DeviceTypeIdentifier,
 
         // Networking
         [AT("CH", "Operating Channel", ATValueType.Number, 0x1A)]
         OperatingChannel,
-        [AT("ID", "Extended PAN ID", ATVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
+        [AT("ID", "Extended PAN ID", ApiVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
         ExtendedPanId,
-        [AT("OP", "Operating Extended PAN ID", ATVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
+        [AT("OP", "Operating Extended PAN ID", ApiVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
         OperatingExtendedPanId,
-        [AT("NH", "Maximum Unicast Hops", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("NH", "Maximum Unicast Hops", ApiVersion.S2, ATValueType.Number, 0xFF)]
         UnicastHops,
-        [AT("BH", "Broadcast Hops", ATVersion.S2, ATValueType.Number, 0x1E)]
+        [AT("BH", "Broadcast Hops", ApiVersion.S2, ATValueType.Number, 0x1E)]
         BroadcastHops,
-        [AT("OI", "Operating 16-bit PAN ID", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("OI", "Operating 16-bit PAN ID", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         OperatingPanId,
         [AT("NT", "Node Discovery Timeout", ATValueType.Number, 0xFF)]
         NodeDiscoveryTimeout,
@@ -115,29 +115,29 @@ namespace XBee.Frames.ATCommands
         ScanChannels,
         [AT("SD", "Scan Duration", ATValueType.Number, 0x07)]
         ScanDuration,
-        [AT("ZS", "ZigBee Stack Profile", ATVersion.S2, ATValueType.Number, 0x02)]
+        [AT("ZS", "ZigBee Stack Profile", ApiVersion.S2, ATValueType.Number, 0x02)]
         ZigBeeStackProfile,
-        [AT("NJ", "Node Join Time", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("NJ", "Node Join Time", ApiVersion.S2, ATValueType.Number, 0xFF)]
         NodeJoinTime,
-        [AT("JV", "Channel Verification", ATVersion.S2, ATValueType.Number)]
+        [AT("JV", "Channel Verification", ApiVersion.S2, ATValueType.Number)]
         ChannelVerification,
-        [AT("NW", "Network Watchdog Timeout", ATVersion.S2, ATValueType.Number, 0x64FF)]
+        [AT("NW", "Network Watchdog Timeout", ApiVersion.S2, ATValueType.Number, 0x64FF)]
         NetworkWatchdogTimeout,
-        [AT("JN", "Join Notification", ATVersion.S2, ATValueType.Number, 0x01)]
+        [AT("JN", "Join Notification", ApiVersion.S2, ATValueType.Number, 0x01)]
         JoinNotification,
-        [AT("AR", "Aggregate Routing Notification", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("AR", "Aggregate Routing Notification", ApiVersion.S2, ATValueType.Number, 0xFF)]
         AggregateRoutingNotification,
-        [AT("DJ", "Disable Joining", ATVersion.S2, ATValueType.Number, 0x01)]
+        [AT("DJ", "Disable Joining", ApiVersion.S2, ATValueType.Number, 0x01)]
         DisableJoining,
-        [AT("II", "Initial ID", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("II", "Initial ID", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         InitialID,
 
         // Security
         [AT("EE", "Encryption Enable", ATValueType.Number, 0x01)]
         EncryptionEnable,
-        [AT("EO", "Encryption Options", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("EO", "Encryption Options", ApiVersion.S2, ATValueType.Number, 0xFF)]
         EncryptionOptions,
-        [AT("NK", "Network Encryption Key", ATVersion.S2, ATValueType.None)]
+        [AT("NK", "Network Encryption Key", ApiVersion.S2, ATValueType.None)]
         NetworkEncryptionKey,
         [AT("KY", "Link Encryption Key", ATValueType.None)]
         LinkEncryptionKey,
@@ -145,23 +145,23 @@ namespace XBee.Frames.ATCommands
         // RF Interfacing
         [AT("PL", "Power Level", ATValueType.Number, 0x04)]
         PowerLevel,
-        [AT("PM", "Power Mode", ATVersion.S2, ATValueType.Number, 0x01)]
+        [AT("PM", "Power Mode", ApiVersion.S2, ATValueType.Number, 0x01)]
         PowerMode,
         [AT("DB", "Received Signal Strength", ATValueType.Number)]
         ReceivedSignalStrength,
-        [AT("PP", "Peak Power", ATVersion.S2, ATValueType.Number, 0x12)]
+        [AT("PP", "Peak Power", ApiVersion.S2, ATValueType.Number, 0x12)]
         PeakPower,
 
         // Serial Interfacing
         [AT("AP", "API Enable", ATValueType.Number, 0x02)]
         ApiEnable,
-        [AT("AO", "API Options", ATVersion.S2, ATValueType.Number, 0x03)]
+        [AT("AO", "API Options", ApiVersion.S2, ATValueType.Number, 0x03)]
         ApiOptions,
         [AT("BD", "Interface Data Rate", ATValueType.Number, 0xE1000)]
         BaudRate,
         [AT("NB", "Serial Parity", ATValueType.Number, 0x03)]
         Parity,
-        [AT("SB", "Stop Bits", ATVersion.S2, ATValueType.Number, 0x01)]
+        [AT("SB", "Stop Bits", ApiVersion.S2, ATValueType.Number, 0x01)]
         StopBits,
         [AT("RO", "Packetization Timeout", ATValueType.Number, 0xFF)]
         PacketizationTimeout,
@@ -177,11 +177,11 @@ namespace XBee.Frames.ATCommands
         IOChangeDetection,
         [AT("P0", "PWM0 Configuration", ATValueType.Number, 0x05)]
         Pwm0Configuration,
-        [AT("P1", "DIO11 Configuration", ATVersion.S2, ATValueType.Number, 0x05)]
+        [AT("P1", "DIO11 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
         DigitalIO11,
-        [AT("P2", "DIO12 Configuration", ATVersion.S2, ATValueType.Number, 0x05)]
+        [AT("P2", "DIO12 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
         DigitalIO12,
-        [AT("P3", "DIO13 Configuration", ATVersion.S2, ATValueType.Number, 0x05)]
+        [AT("P3", "DIO13 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
         DigitalIO13,
         [AT("D0", "AD0/DIO0 Configuration", ATValueType.Number, 0x05)]
         DigitalIO0,
@@ -197,17 +197,17 @@ namespace XBee.Frames.ATCommands
         DigitalIO5,
         [AT("D8", "DIO8 Configuration", ATValueType.Number, 0x05)]
         DigitalIO8,
-        [AT("LT", "Assoc LED Blink Time", ATVersion.S2, ATValueType.Number, 0xFF)]
+        [AT("LT", "Assoc LED Blink Time", ApiVersion.S2, ATValueType.Number, 0xFF)]
         LedBlinkTime,
         [AT("PR", "Pull-up Resistor", ATValueType.Number, 0x3FFF)]
         PullUpResistor,
         [AT("RP", "RSSI PWM Timer", ATValueType.Number, 0xFF)]
         RSSITimer,
-        [AT("%V", "Supply Voltage", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("%V", "Supply Voltage", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         SupplyVoltage,
-        [AT("V+", "Voltage Supply Monitoring", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("V+", "Voltage Supply Monitoring", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         VoltageMonitoring,
-        [AT("TP", "Reads the module temperature in Degrees Celsius", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("TP", "Reads the module temperature in Degrees Celsius", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         Temperature,
 
         // Diagnostics
@@ -231,7 +231,7 @@ namespace XBee.Frames.ATCommands
         // Sleep Commands
         [AT("SM", "Sleep Mode", ATValueType.Number, 0x05)]
         SleepMode,
-        [AT("SN", "Number of Sleep Periods", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("SN", "Number of Sleep Periods", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         NumberOfSleepPeriods,
         [AT("SP", "Sleep Period", ATValueType.Number, 0x0AF0)]
         SleepPeriod,
@@ -239,11 +239,11 @@ namespace XBee.Frames.ATCommands
         TimeBeforeSleep,
         [AT("SO", "Sleep Options", ATValueType.Number, 0x06)]
         SleepOptions,
-        [AT("WH", "Wake Host", ATVersion.S2, ATValueType.Number, 0xFFFF)]
+        [AT("WH", "Wake Host", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         WakeHost,
-        [AT("SI", "Sleep Immediately", ATVersion.S2, ATValueType.None)]
+        [AT("SI", "Sleep Immediately", ApiVersion.S2, ATValueType.None)]
         SleepImmediately,
-        [AT("PO", "Polling Rate", ATVersion.S2, ATValueType.Number, 0x3E8)]
+        [AT("PO", "Polling Rate", ApiVersion.S2, ATValueType.Number, 0x3E8)]
         PollingRate,
 
         // Execution Commands
@@ -255,21 +255,21 @@ namespace XBee.Frames.ATCommands
         RestoreDefaults,
         [AT("FR", "Software Reset", ATValueType.None)]
         SoftwareReset,
-        [AT("NR", "Network Reset", ATVersion.S2, ATValueType.Number, 0x01)]
+        [AT("NR", "Network Reset", ApiVersion.S2, ATValueType.Number, 0x01)]
         NetworkReset,
-        [AT("CB", "Commissioning Pushbutton", ATVersion.S2, ATValueType.None)]
+        [AT("CB", "Commissioning Pushbutton", ApiVersion.S2, ATValueType.None)]
         CommissioningPushButton,
-        [AT("ND", "Node Discover", ATVersion.S2, ATValueType.NodeDiscoverZB)]
+        [AT("ND", "Node Discover", ApiVersion.S2, ATValueType.NodeDiscoverZB)]
         NodeDiscover,
         [AT("DN", "Destination Node", ATValueType.Number)]
         DestinationNode,
         [AT("IS", "Force Sample", ATValueType.None)]
         ForceSample,
-        [AT("1S", "XBee Sensor Sample", ATVersion.S2, ATValueType.None)]
+        [AT("1S", "XBee Sensor Sample", ApiVersion.S2, ATValueType.None)]
         SensorSample,
 
 		// invalid value
-        [AT("", "Unknown AT Command", ATVersion.All, ATValueType.None)]
+        [AT("", "Unknown AT Command", ApiVersion.All, ATValueType.None)]
         Unknown
     }
 }
