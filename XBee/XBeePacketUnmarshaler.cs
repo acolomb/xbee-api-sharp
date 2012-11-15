@@ -46,10 +46,10 @@ namespace XBee
             var length = (uint) (packetData[0] << 8 | packetData[1]);
 
             if ((length == 0) || (length > 0xFFFF))
-                throw new XBeeFrameException(String.Format("Invalid Frame Lenght {0}.", length));
+                throw new XBeeFrameException(String.Format("Invalid Frame Length {0}.", length));
 
             if (length != packetData.Length - 3)
-                throw new XBeeFrameException(String.Format("Invalid Frame Lenght - Expecting {0}, received {1}.", length, packetData.Length - 3));
+                throw new XBeeFrameException(String.Format("Invalid Frame Length - Expecting {0}, received {1}.", length, packetData.Length - 3));
 
             var checkData = packetData.Skip(2).ToArray();
             if (!XBeeChecksum.Verify(checkData)) 

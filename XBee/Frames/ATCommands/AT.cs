@@ -90,7 +90,7 @@ namespace XBee.Frames.ATCommands
         [AT("CI", "Cluster Identifier", ATVersion.S2, ATValueType.Number, 0xFFFF)]
         ClusterIdentifier,
         [AT("NP", "Maximum RF Payload Bytes", ATVersion.S2, ATValueType.Number, 0xFFFF)]
-        MaximumPayloadLenght,
+        MaximumPayloadLength,
         [AT("DD", "Device Type Identifier", ATVersion.S2, ATValueType.Number, 0xFFFFFFFF)]
         DeviceTypeIdentifier,
 
