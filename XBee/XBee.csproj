@@ -90,6 +90,7 @@
     <Compile Include="Frames\ATCommands\ATValue.cs" />
     <Compile Include="Exceptions\XBeeProtocolException.cs" />
     <Compile Include="Frames\ATCommands\ATVersion.cs" />
+    <Compile Include="ApiVersion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
