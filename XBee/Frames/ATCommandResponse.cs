@@ -7,7 +7,7 @@ namespace XBee.Frames
 {
     public class ATCommandResponse : XBeeFrame
     {
-        public enum CommandStatusType
+        public enum CommandStatusType : byte
         {
             Ok = 0x00,
             Error = 0x01,
