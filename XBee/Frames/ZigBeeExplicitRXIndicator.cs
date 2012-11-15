@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace XBee.Frames
 {
@@ -18,7 +18,7 @@ namespace XBee.Frames
         public ZigBeeExplicitRXIndicator(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.EXPLICIT_RX_INDICATOR_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_EXPLICIT_RX_INDICATOR_RESPONSE;
         }
 
         public override byte[] ToByteArray()

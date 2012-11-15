@@ -45,7 +45,7 @@ namespace XBee.Frames
         public ZigBeeTransmitStatus(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.TRANSMIT_STATUS_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_TRANSMIT_STATUS_RESPONSE;
         }
 
         public override byte[] ToByteArray()

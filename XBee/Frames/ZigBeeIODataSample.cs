@@ -20,7 +20,7 @@ namespace XBee.Frames
         {
             this.parser = parser;
             AnalogSamples = new uint[4];
-            CommandId = XBeeAPICommandId.IO_SAMPLE_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_IO_SAMPLE_RESPONSE;
         }
 
         public override byte[] ToByteArray()

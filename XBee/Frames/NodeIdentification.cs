@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace XBee.Frames
 {
@@ -33,7 +33,7 @@ namespace XBee.Frames
         public NodeIdentification(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.NODE_IDENTIFIER_RESPONSE;
+            CommandId = XBeeAPICommandId.NODE_IDENTIFICATION_RESPONSE;
         }
 
         public override byte[] ToByteArray()

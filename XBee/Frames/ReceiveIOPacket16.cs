@@ -8,7 +8,7 @@ namespace XBee.Frames
         public ReceiveIOPacket16(PacketParser parser) :
             base(parser)
         {
-            CommandId = XBeeAPICommandId.RECEIVE_16_IO_RESPONSE;
+            CommandId = XBeeAPICommandId.RECEIVE_IO_16_RESPONSE;
         }
 
         public override void Parse()

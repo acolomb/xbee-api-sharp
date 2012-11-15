@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace XBee.Frames
@@ -20,7 +20,7 @@ namespace XBee.Frames
 
         public TransmitRequest16(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.REQUEST_16;
+            CommandId = XBeeAPICommandId.TRANSMIT_REQUEST_16;
             this.destination = destination;
             Options = 0;
             rfData = null;

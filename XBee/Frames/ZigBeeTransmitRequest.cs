@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace XBee.Frames
@@ -21,7 +21,7 @@ namespace XBee.Frames
 
         public ZigBeeTransmitRequest(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.TRANSMIT_DATA_REQUEST;
+            CommandId = XBeeAPICommandId.ZIGBEE_TRANSMIT_REQUEST;
             this.destination = destination;
             BroadcastRadius = 0;
             Options = 0;

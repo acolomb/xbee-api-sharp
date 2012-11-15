@@ -23,7 +23,7 @@ namespace XBee.Frames
         public SensorReadIndicator(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.SENSOR_READ_INDICATOR;
+            CommandId = XBeeAPICommandId.XBEE_SENSOR_READ_INDICATOR;
             ADValues = new ushort[] { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF };
         }
 
