@@ -74,10 +74,10 @@ namespace XBee
                 throw new XBeeException("Invalid Frame Handler");
 
             if (framesMap.ContainsKey(commandId)) {
-                logger.Info(String.Format("Overriding Frame Handler: {0} with {1} for API Id: 0x{2:x2}", framesMap[commandId].Name, typeHandler.Name, (byte) commandId));
+                logger.Info("Overriding Frame Handler: {0} with {1} for API Id: 0x{2:x2}", framesMap[commandId].Name, typeHandler.Name, (byte) commandId);
                 framesMap[commandId] = typeHandler;
             } else {
-                logger.Info(String.Format("Adding Frame Handler: {0} for API Id: 0x{1:x2}", typeHandler.Name, (byte) commandId));
+                logger.Info("Adding Frame Handler: {0} for API Id: 0x{1:x2}", typeHandler.Name, (byte) commandId);
                 framesMap.Add(commandId, typeHandler);
             }
         }
