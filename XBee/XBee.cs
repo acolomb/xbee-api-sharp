@@ -47,8 +47,8 @@ namespace XBee
         public void SetConnection(IXBeeConnection connection)
         {
             this.connection = connection;
-            this.connection.Open();
             this.connection.SetPacketReader(reader);
+            this.connection.Open();
 
             /*
             receiveThread = new Thread(new ThreadStart(ReceiveData));
