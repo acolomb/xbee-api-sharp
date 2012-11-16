@@ -76,6 +76,8 @@ namespace XBee
 
             var packet = new XBeePacket(frame, apiVersion);
             packet.Assemble();
+            if (connection == null)
+                throw new XBeeException("No connection set for this XBee yet.");
             connection.Write(packet.Data);
         }
 
