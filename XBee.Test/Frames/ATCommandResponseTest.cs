@@ -2,6 +2,7 @@ using NUnit.Framework;
 using XBee;
 using XBee.Frames;
 using XBee.Frames.ATCommands;
+using XBee.Exceptions;
 
 namespace XBee.Test.Frames
 {
@@ -20,6 +21,14 @@ namespace XBee.Test.Frames
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));
             Assert.That(cmd.Command, Is.EqualTo(AT.BaudRate));
             Assert.That(cmd.CommandStatus, Is.EqualTo(ATCommandResponse.CommandStatusType.Ok));
+        }
+
+        [Test]
+        [ExpectedException(typeof(XBeeFrameException), ExpectedMessage = "Unsupported ATNR command for specified API version S1.")]
+        public void TestATCommandResponseWrongApiVersion()
+        {
+            var packet = new byte[] { 0x00, 0x05, 0x88, 0x01, 0x4E, 0x52, 0x00, 0xD6 };
+            XBeePacketUnmarshaler.Unmarshal(packet, ApiVersion.S1);
         }
 
         [Test]
