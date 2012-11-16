@@ -27,6 +27,7 @@ namespace XBee
         private XBeeFrame lastFrame = null;
         private IPacketReader reader;
         private ApiTypeValue apiType = ApiTypeValue.Enabled;
+        private ApiVersion apiVersion;
 
         public XBee()
         {
@@ -46,8 +47,8 @@ namespace XBee
 
         public ApiVersion ApiVersion
         {
-            get { return reader.ApiVersion; }
-            set { reader.ApiVersion = value; }
+            get { return apiVersion; }
+            set { reader.ApiVersion = apiVersion = value; }
         }
         
         public void SetConnection(IXBeeConnection connection)
@@ -73,7 +74,7 @@ namespace XBee
                 frame.FrameId = ++frameId; //FIXME
             }
 
-            var packet = new XBeePacket(frame);
+            var packet = new XBeePacket(frame, apiVersion);
             packet.Assemble();
             connection.Write(packet.Data);
         }
