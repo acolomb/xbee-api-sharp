@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using XBee.Frames.ATCommands;
+using XBee.Exceptions;
 using XBee.Utils;
 
 namespace XBee.Frames
@@ -23,6 +24,13 @@ namespace XBee.Frames
         public ATValue Value { get; protected set; }
         public CommandStatusType CommandStatus { get; protected set; }
 
+        public override ApiVersion SupportedApiVersions {
+            get {
+                if (Command == AT.Unknown) return ApiVersion.All;
+                else return (Command.GetAttr() as ATAttribute).ApiVersion;
+            }
+        }
+
         public ATCommandResponse(PacketParser parser)
         {
             this.parser = parser;
@@ -41,7 +49,9 @@ namespace XBee.Frames
 
         public override void UseApiVersion(ApiVersion requested)
         {
-            base.UseApiVersion(requested);
+            if (! TestApiVersion(requested))
+                throw new XBeeFrameException(String.Format("Unsupported AT{0} command for specified API version {1}.",
+                                                           ((ATAttribute) Command.GetAttr()).ATCommand, requested));
             ExpectedApi = requested;
         }
 
