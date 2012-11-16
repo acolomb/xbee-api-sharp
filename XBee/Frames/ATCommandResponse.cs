@@ -39,10 +39,10 @@ namespace XBee.Frames
             return new byte[] { };
         }
 
-        public override bool UseApiVersion(ApiVersion requested)
+        public override void UseApiVersion(ApiVersion requested)
         {
+            base.UseApiVersion(requested);
             ExpectedApi = requested;
-            return base.UseApiVersion(requested);
         }
 
         public override void Parse()

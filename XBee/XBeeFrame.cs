@@ -1,3 +1,6 @@
+using System;
+using XBee.Exceptions;
+
 namespace XBee
 {
     public abstract class XBeeFrame
@@ -11,9 +14,11 @@ namespace XBee
 
         public abstract byte[] ToByteArray();
 
-        public virtual bool UseApiVersion(ApiVersion requested)
+        public virtual void UseApiVersion(ApiVersion requested)
         {
-            return TestApiVersion(requested);
+            if (! TestApiVersion(requested))
+                throw new XBeeFrameException(String.Format("Frame type {0} not supported by requested API version {1}.",
+                                                           GetType(), requested));
         }
 
         public abstract void Parse();

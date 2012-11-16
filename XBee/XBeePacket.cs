@@ -11,9 +11,7 @@ namespace XBee
 
         public XBeePacket(XBeeFrame frame, ApiVersion apiVersion = ApiVersion.Unknown)
         {
-            if (! frame.UseApiVersion(apiVersion))
-                throw new XBeeFrameException(String.Format("Unsupported frame type {0} for specified API version {1}.",
-                                                           frame.GetType(), apiVersion));
+            frame.UseApiVersion(apiVersion);
             frameData = frame.ToByteArray();
         }
 
