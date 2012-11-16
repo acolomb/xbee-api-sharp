@@ -73,5 +73,12 @@ namespace XBee.Test
             Assert.That(cmd.FrameId, Is.EqualTo(0x01));
             Assert.That(cmd.Command, Is.EqualTo(AT.DestinationHigh));
         }
+
+        [Test]
+        public void TestXBeeUnmarshalerWrongFrameApiVersion()
+        {
+            var packetData = new byte[] { 0x00, 0x12, 0x90, 0x00, 0x13, 0xA2, 0x00, 0x40, 0x52, 0x2B, 0xAA, 0x7D, 0x84, 0x01, 0x52, 0x78, 0x44, 0x61, 0x74, 0x61, 0x0D };
+            Assert.Throws<XBeeFrameException>(delegate { XBeeFrame frame = XBeePacketUnmarshaler.Unmarshal(packetData, ApiVersion.S1); });
+        }
     }
 }
