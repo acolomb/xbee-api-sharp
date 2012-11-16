@@ -105,10 +105,26 @@ namespace XBee.Frames.ATCommands
         // Networking
         [AT("CH", "Operating Channel", ATValueType.Number, 0x1A)]
         OperatingChannel,
+        [AT("DA", "Force Disassociation", ATValueType.None)]
+        ForceDisassociation,
+        [AT("FP", "Force Poll", ApiVersion.S1, ATValueType.None)]
+        ForcePoll,
+        [AT("AS", "Active Scan", ApiVersion.S1, ATValueType.PanDescriptor)]
+        ActiveScan,
+        [AT("ED", "Energy Detect", ApiVersion.S1, ATValueType.None, 0x06)]
+        EnergyDetect,
+        [AT("ID", "PAN ID", ApiVersion.S1, ATValueType.Number, 0xFFFF)]
+        PanId,
         [AT("ID", "Extended PAN ID", ApiVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
         ExtendedPanId,
         [AT("OP", "Operating Extended PAN ID", ApiVersion.S2, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
         OperatingExtendedPanId,
+        [AT("RR", "XBee Retries", ApiVersion.S1, ATValueType.Number, 0x06)]
+        XBeeRetries,
+        [AT("RN", "Random Delay Slots", ApiVersion.S1, ATValueType.Number, 0x03)]
+        RandomDelaySlots,
+        [AT("MM", "MAC Mode", ApiVersion.S1, ATValueType.Number, 0x03)]
+        MacMode,
         [AT("NH", "Maximum Unicast Hops", ApiVersion.S2, ATValueType.Number, 0xFF)]
         UnicastHops,
         [AT("BH", "Broadcast Hops", ApiVersion.S2, ATValueType.Number, 0x1E)]
@@ -119,10 +135,16 @@ namespace XBee.Frames.ATCommands
         NodeDiscoveryTimeout,
         [AT("NO", "Network Discovery options", ATValueType.Number, 0x03)]
         NetworkDiscoveryOptions,
+        [AT("CE", "Coordinator Enable", ApiVersion.S1, ATValueType.Number, 0x01)]
+        CoordinatorEnable,
         [AT("SC", "Scan Channels", ATValueType.Number, 0x7FFF)]
         ScanChannels,
         [AT("SD", "Scan Duration", ATValueType.Number, 0x07)]
         ScanDuration,
+        [AT("A1", "End Device Association", ApiVersion.S1, ATValueType.Number, 0x0F)]
+        EndDeviceAssociation,
+        [AT("A2", "Coordinator Association", ApiVersion.S1, ATValueType.Number, 0x07)]
+        CoordinatorAssociation,
         [AT("ZS", "ZigBee Stack Profile", ApiVersion.S2, ATValueType.Number, 0x02)]
         ZigBeeStackProfile,
         [AT("NJ", "Node Join Time", ApiVersion.S2, ATValueType.Number, 0xFF)]
@@ -153,6 +175,8 @@ namespace XBee.Frames.ATCommands
         // RF Interfacing
         [AT("PL", "Power Level", ATValueType.Number, 0x04)]
         PowerLevel,
+        [AT("CA", "CCA Threshold", ApiVersion.S1, ATValueType.Number, 0x50)]
+        CCAThreshold,
         [AT("PM", "Power Mode", ApiVersion.S2, ATValueType.Number, 0x01)]
         PowerMode,
         [AT("DB", "Received Signal Strength", ATValueType.Number)]
@@ -179,12 +203,22 @@ namespace XBee.Frames.ATCommands
         DigitalIO6,
 
         // I/O Commands
+        [AT("IU", "I/O Output Enable", ApiVersion.S1, ATValueType.Number, 0x01)]
+        IOOutputEnable,
+        [AT("IT", "Samples before TX", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        IOSamplesBeforeTX,
+        [AT("IO", "Digital Output Level", ApiVersion.S1, ATValueType.None, 0xFF)]
+        DigitalOutputLevel,
         [AT("IR", "IO Sample Rate", ATValueType.Number, 0xFFFF)]
         IOSampleRate,
         [AT("IC", "IO Digital Change Detection", ATValueType.Number, 0x0FFF)]
         IOChangeDetection,
+        [AT("IA", "I/O Input Address", ApiVersion.S1, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
+        IOInputAddress,
         [AT("P0", "PWM0 Configuration", ATValueType.Number, 0x05)]
         Pwm0Configuration,
+        [AT("P1", "PWM1 Configuration", ApiVersion.S1, ATValueType.Number, 0x02)]
+        Pwm1Configuration,
         [AT("P1", "DIO11 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
         DigitalIO11,
         [AT("P2", "DIO12 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
@@ -205,10 +239,32 @@ namespace XBee.Frames.ATCommands
         DigitalIO5,
         [AT("D8", "DIO8 Configuration", ATValueType.Number, 0x05)]
         DigitalIO8,
+        [AT("T0", "DIO0 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO0Timeout,
+        [AT("T1", "DIO1 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO1Timeout,
+        [AT("T2", "DIO2 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO2Timeout,
+        [AT("T3", "DIO3 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO3Timeout,
+        [AT("T4", "DIO4 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO4Timeout,
+        [AT("T5", "DIO5 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO5Timeout,
+        [AT("T6", "DIO6 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO6Timeout,
+        [AT("T7", "DIO7 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        DigitalIO7Timeout,
         [AT("LT", "Assoc LED Blink Time", ApiVersion.S2, ATValueType.Number, 0xFF)]
         LedBlinkTime,
         [AT("PR", "Pull-up Resistor", ATValueType.Number, 0x3FFF)]
         PullUpResistor,
+        [AT("M0", "PWM0 Output Level", ApiVersion.S1, ATValueType.Number, 0x03FF)]
+        Pwm0OutputLevel,
+        [AT("M1", "PWM1 Output Level", ApiVersion.S1, ATValueType.Number, 0x03FF)]
+        Pwm1OutputLevel,
+        [AT("PT", "PWM Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
+        PwmOutputTimeout,
         [AT("RP", "RSSI PWM Timer", ATValueType.Number, 0xFF)]
         RSSITimer,
         [AT("%V", "Supply Voltage", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
@@ -221,10 +277,16 @@ namespace XBee.Frames.ATCommands
         // Diagnostics
         [AT("VR", "Firmware Version", ATValueType.Number, 0xFFFF)]
         FirmwareVersion,
+        [AT("VL", "Firmware Version - Verbose", ApiVersion.S1, ATValueType.None)]
+        FirmwareVersionVerbose,
         [AT("HV", "Hardware Version", ATValueType.Number, 0xFFFF)]
         HardwareVersion,
         [AT("AI", "Association Indication", ATValueType.Number, 0xFF)]
         AssociationIndication,
+        [AT("EC", "CCA Failures", ApiVersion.S1, ATValueType.Number, 0)]
+        CCAFailures,
+        [AT("EA", "ACK Failures", ApiVersion.S1, ATValueType.Number, 0)]
+        AckFailures,
 
         // AT Command Options
         [AT("CT", "Command Mode Timeout", ATValueType.Number, 0x028F)]
@@ -243,6 +305,8 @@ namespace XBee.Frames.ATCommands
         NumberOfSleepPeriods,
         [AT("SP", "Sleep Period", ATValueType.Number, 0x0AF0)]
         SleepPeriod,
+        [AT("DP", "Disassociated Cyclic Sleep Period", ApiVersion.S1, ATValueType.Number, 0x68B0)]
+        DisassociateSleepPeriod,
         [AT("ST", "Time Before Sleep", ATValueType.Number, 0xFFFE)]
         TimeBeforeSleep,
         [AT("SO", "Sleep Options", ATValueType.Number, 0x06)]
