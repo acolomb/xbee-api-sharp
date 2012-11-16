@@ -273,6 +273,6 @@ namespace XBee.Frames.ATCommands
 
 		// invalid value
         [AT("", "Unknown AT Command", ApiVersion.All, ATValueType.None)]
-        Unknown
+        Unknown = 0
     }
 }
