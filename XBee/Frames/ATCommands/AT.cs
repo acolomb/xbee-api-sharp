@@ -1,5 +1,6 @@
 using System;
 using XBee.Utils;
+using XBee.Exceptions;
 
 namespace XBee.Frames.ATCommands
 {
@@ -53,15 +54,19 @@ namespace XBee.Frames.ATCommands
         public static AT Parse(string value, ApiVersion apiVersion = ApiVersion.Unknown)
         {
             var atCommands = (AT[])Enum.GetValues(typeof(AT));
-            var cmd = Array.Find(atCommands, at => {
-                var attribute = (ATAttribute) at.GetAttr();
-                return (attribute.ATCommand == value)
-                    && (attribute.ApiVersion & apiVersion) == apiVersion; });
+            atCommands = Array.FindAll(atCommands, at => (at.GetAttr() as ATAttribute).ATCommand == value);
 
-            if (cmd == 0)
+            if (atCommands.Length == 0)
                 return AT.Unknown;
 
-            return cmd;
+            foreach (var cmd in atCommands) {
+                var attribute = (ATAttribute) cmd.GetAttr();
+                if ((attribute.ApiVersion & apiVersion) == apiVersion)
+                    return cmd;
+            }
+
+            throw new XBeeFrameException(String.Format("Unsupported AT{0} command for specified API version {1}.",
+                                                       (atCommands[0].GetAttr() as ATAttribute).ATCommand, apiVersion));
         }
     }
 
