@@ -1,10 +1,19 @@
 ﻿using NUnit.Framework;
+using XBee.Frames;
+using XBee.Exceptions;
 
 namespace XBee.Test
 {
     [TestFixture]
     class XBeePacketTest
     {
+        [Test]
+        public void TestXBeePacketWrongAPIVersionFrame()
+        {
+            var request = new CreateSourceRoute(new PacketParser(new System.IO.MemoryStream()));
+            Assert.Throws(typeof(XBeeFrameException), delegate { new XBeePacket(request, ApiVersion.S1); });
+        }
+
         [Test]
         public void ATCommandSampleTest()
         {
