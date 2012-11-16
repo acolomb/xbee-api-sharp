@@ -14,6 +14,13 @@ namespace XBee.Test.Frames
         }
 
         [Test]
+        public void ATUtilDefaultReturnsUnknown()
+        {
+            AT at = default(AT);
+            Assert.That(at, Is.EqualTo(AT.Unknown));
+        }
+        
+        [Test]
         public void ATUtilInvalidReturnsUnknown()
         {
             Assert.That(ATUtil.Parse("11"), Is.EqualTo(AT.Unknown));
