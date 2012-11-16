@@ -233,12 +233,14 @@ namespace XBee.Frames.ATCommands
         DigitalIO2,
         [AT("D3", "AD3/DIO3 Configuration", ATValueType.Number, 0x05)]
         DigitalIO3,
-        [AT("D4", "DIO4 Configuration", ATValueType.Number, 0x05)]
+        [AT("D4", "AD4/DIO4 Configuration", ATValueType.Number, 0x05)]
         DigitalIO4,
         [AT("D5", "DIO5 Configuration", ATValueType.Number, 0x05)]
         DigitalIO5,
-        [AT("D8", "DIO8 Configuration", ATValueType.Number, 0x05)]
+        [AT("D8", "DIO8 Configuration", ApiVersion.S2, ATValueType.Number, 0x05)]
         DigitalIO8,
+        [AT("D8", "DI8 Configuration", ApiVersion.S1, ATValueType.Number, 0x03)]
+        DigitalI8,
         [AT("T0", "DIO0 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
         DigitalIO0Timeout,
         [AT("T1", "DIO1 Output Timeout", ApiVersion.S1, ATValueType.Number, 0xFF)]
@@ -331,8 +333,10 @@ namespace XBee.Frames.ATCommands
         NetworkReset,
         [AT("CB", "Commissioning Pushbutton", ApiVersion.S2, ATValueType.None)]
         CommissioningPushButton,
-        [AT("ND", "Node Discover", ApiVersion.S2, ATValueType.NodeDiscoverZB)]
+        [AT("ND", "Node Discover", ApiVersion.S1, ATValueType.NodeDiscover)]
         NodeDiscover,
+        [AT("ND", "Node Discover", ApiVersion.S2, ATValueType.NodeDiscoverZB)]
+        NodeDiscoverZB,
         [AT("DN", "Destination Node", ATValueType.Number)]
         DestinationNode,
         [AT("IS", "Force Sample", ATValueType.None)]
