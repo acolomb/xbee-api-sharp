@@ -67,7 +67,6 @@ namespace XBee
                     break;
                 }
             }
-            //FIXME: Write a test for several API frames in one serial RX packet
         }
 
 
