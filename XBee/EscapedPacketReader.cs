@@ -16,7 +16,7 @@ namespace XBee
             var escapeNext = false;
             var escapedData = new MemoryStream();
             foreach (var b in data) {
-                if (IsSpecialByte(b)) {
+                if (XBeeEscapeCharacters.IsSpecialByte(b)) {
                     if (b == (byte) XBeeSpecialBytes.EscapeByte) {
                         escapeNext = true;
                         continue;
@@ -27,23 +27,13 @@ namespace XBee
                 }
 
                 if (escapeNext) {
-                    escapedData.WriteByte(EscapeByte(b));
+                    escapedData.WriteByte(XBeeEscapeCharacters.EscapeByte(b));
                     escapeNext = false;
                 } else {
                     escapedData.WriteByte(b);
                 }
             }
             return escapedData;
-        }
-
-        public bool IsSpecialByte(byte b)
-        {
-            return Enum.IsDefined(typeof(XBeeSpecialBytes), b);
-        }
-
-        public byte EscapeByte(byte b)
-        {
-            return (byte) (0x20 ^ b);
         }
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="XBeeUnmarshalerTest.cs" />
     <Compile Include="XBeeChecksumTest.cs" />
     <Compile Include="Frames\ZigBeeTransmitRequestTest.cs" />
+    <Compile Include="XBeeEscapeCharactersTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XBee\XBee.csproj">
