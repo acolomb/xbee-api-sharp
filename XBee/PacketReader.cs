@@ -8,52 +8,79 @@ namespace XBee
 {
     public class PacketReader : IPacketReader
     {
+        private enum ReaderState
+        {
+            Idle,
+            LengthMSB,
+            LengthLSB,
+            Payload,
+        }
+
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public event FrameReceivedHandler FrameReceived;
 
-        protected MemoryStream Stream = new MemoryStream();
+        private ReaderState state = ReaderState.Idle;
+        private MemoryStream packetStream = new MemoryStream();
         private uint packetLength = 0;
 
         public ApiVersion ApiVersion { get; set; }
 
         public void ReceiveData(byte[] data)
         {
-            if (packetLength == 0 && data[0] == (byte) XBeeSpecialBytes.StartByte) {
-                Stream = new MemoryStream();
-                packetLength = 0;
-            }
-
-            CopyAndProcessData(data);
+            var inputStream = new MemoryStream(data);
+            CopyAndProcessData(inputStream);
         }
 
-        private void CopyAndProcessData(byte[] data)
+        private void CopyAndProcessData(Stream inputStream)
         {
-            foreach (var b in data.Where(b => Stream.Length != 0 || b != (byte) XBeeSpecialBytes.StartByte)) {
-                Stream.WriteByte(b);
+            int b;
+            while ((b = inputStream.ReadByte()) != -1) {
+                switch (state) {
+                case ReaderState.Idle:
+                    if (b == (int) XBeeSpecialBytes.StartByte) {
+                        packetStream = new MemoryStream();
+                        state = ReaderState.LengthMSB;
+                    } else {
+                        logger.Info("Ignoring byte {0:X2} in packet reader state {1}.", b, state);
+                    }
+                    continue;   //don't store this byte in the output packet
+
+                case ReaderState.LengthMSB:
+                    WriteByte((byte) b);
+                    packetLength = (uint) (b << 8);
+                    state = ReaderState.LengthLSB;
+                    break;
+                
+                case ReaderState.LengthLSB:
+                    WriteByte((byte) b);
+                    packetLength = (packetLength | (uint) b) + 3;
+                    logger.Debug("Expecting packet length {0}.", packetLength);
+                    state = ReaderState.Payload;
+                    break;
+
+                case ReaderState.Payload:
+                    WriteByte((byte) b);
+                    if (packetStream.Length == packetLength) {
+                        ProcessReceivedData();
+                        state = ReaderState.Idle;
+                    }
+                    break;
+                }
             }
-
-            //FIXME: several API frames in one serial RX packet not handled correctly!
-            //FIXME: Write a test for this!
-
-            if (packetLength == 0 && Stream.Length > 2) {
-                var packet = Stream.ToArray();
-                packetLength = (uint) (packet[0] << 8 | packet[1]) + 3;
-            }
-
-            if (Stream.Length < 3)
-                return;
-
-            if (packetLength != 0 && Stream.Length < packetLength)
-                return;
-
-            ProcessReceivedData();
+            //FIXME: Write a test for several API frames in one serial RX packet
         }
 
-        protected virtual void ProcessReceivedData()
+
+        protected virtual void WriteByte(byte b)
         {
-            logger.Debug("API frame complete: [" + ByteUtils.ToBase16(Stream.ToArray()) + "]");
+            packetStream.WriteByte((byte) b);
+        }
+
+        protected void ProcessReceivedData()
+        {
+            logger.Debug("API frame complete: [" + ByteUtils.ToBase16(packetStream.ToArray()) + "]");
             try {
-                var frame = XBeePacketUnmarshaler.Unmarshal(Stream.ToArray(), ApiVersion);
+                var frame = XBeePacketUnmarshaler.Unmarshal(packetStream.ToArray(), ApiVersion);
                 packetLength = 0;
                 if (FrameReceived != null)
                     FrameReceived.Invoke(this, new FrameReceivedArgs(frame));
