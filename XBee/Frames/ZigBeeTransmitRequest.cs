@@ -25,7 +25,7 @@ namespace XBee.Frames
 
         public ZigBeeTransmitRequest(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.ZIGBEE_TRANSMIT_REQUEST;
+            CommandId = XBeeAPICommandId.ZIGBEE_TX_REQUEST;
             this.destination = destination;
             BroadcastRadius = 0;
             Options = 0;

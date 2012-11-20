@@ -23,7 +23,7 @@ namespace XBee.Frames
         
         public TransmitRequest64(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.TRANSMIT_REQUEST_64;
+            CommandId = XBeeAPICommandId.TX_REQUEST_64;
             this.destination = destination;
             Options = 0;
             rfData = null;

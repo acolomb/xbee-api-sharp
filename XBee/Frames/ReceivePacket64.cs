@@ -16,7 +16,7 @@ namespace XBee.Frames
         public ReceivePacket64(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.RECEIVE_64_RESPONSE;
+            CommandId = XBeeAPICommandId.RX_64_RESPONSE;
         }
 
         public override byte[] ToByteArray()

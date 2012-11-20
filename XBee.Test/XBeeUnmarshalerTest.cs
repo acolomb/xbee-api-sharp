@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using XBee.Frames;
 using XBee.Frames.ATCommands;
@@ -34,7 +34,7 @@ namespace XBee.Test
         [ExpectedException(typeof(XBeeException), ExpectedMessage = "Invalid Frame Handler")]
         public void TestXBeeUnmarshalerRegisterWrong()
         {
-            XBeePacketUnmarshaler.RegisterFrameHandler(XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST, typeof(NotXBeeFrame));
+            XBeePacketUnmarshaler.RegisterFrameHandler(XBeeAPICommandId.REMOTE_AT_REQUEST, typeof(NotXBeeFrame));
         }
 
         [Test]

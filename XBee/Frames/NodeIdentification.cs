@@ -37,7 +37,7 @@ namespace XBee.Frames
         public NodeIdentification(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.NODE_IDENTIFICATION_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_NODE_IDENTIFICATION_RESPONSE;
         }
 
         public override byte[] ToByteArray()

@@ -8,7 +8,7 @@ namespace XBee.Frames
         public TransmitRequest16(XBeeNode destination) :
             base(destination)
         {
-            CommandId = XBeeAPICommandId.TRANSMIT_REQUEST_16;
+            CommandId = XBeeAPICommandId.TX_REQUEST_16;
         }
 
         protected override void WriteAddress(MemoryStream stream, XBeeNode dest)

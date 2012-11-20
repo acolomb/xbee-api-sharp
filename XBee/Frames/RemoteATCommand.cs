@@ -14,13 +14,13 @@ namespace XBee.Frames
         public RemoteATCommand(PacketParser parser) :
             base(parser)
         {
-            CommandId = XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST;
+            CommandId = XBeeAPICommandId.REMOTE_AT_REQUEST;
         }
 
         public RemoteATCommand(AT command, XBeeNode destination) :
             base(command)
         {
-            CommandId = XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST;
+            CommandId = XBeeAPICommandId.REMOTE_AT_REQUEST;
             Command = command;
             Destination = destination;
         }

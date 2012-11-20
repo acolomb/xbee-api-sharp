@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using XBee.Frames.ATCommands;
 using XBee.Exceptions;
@@ -34,12 +34,12 @@ namespace XBee.Frames
         public ATCommandResponse(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.AT_COMMAND_RESPONSE;
+            CommandId = XBeeAPICommandId.AT_RESPONSE;
         }
 
         public ATCommandResponse()
         {
-            CommandId = XBeeAPICommandId.AT_COMMAND_RESPONSE;
+            CommandId = XBeeAPICommandId.AT_RESPONSE;
         }
 
         public override byte[] ToByteArray()
