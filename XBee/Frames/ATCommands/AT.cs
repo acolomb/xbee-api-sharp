@@ -61,7 +61,7 @@ namespace XBee.Frames.ATCommands
 
             foreach (var cmd in atCommands) {
                 var attribute = (ATAttribute) cmd.GetAttr();
-                if ((attribute.ApiVersion & apiVersion) == apiVersion)
+                if (attribute.ApiVersion.HasFlag(apiVersion))
                     return cmd;
             }
 

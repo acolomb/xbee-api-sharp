@@ -25,7 +25,7 @@ namespace XBee
 
         protected bool TestApiVersion(ApiVersion requested)
         {
-            return (SupportedApiVersions & requested) == requested;
+            return SupportedApiVersions.HasFlag(requested);
         }
     }
 }
