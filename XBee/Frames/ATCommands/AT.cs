@@ -79,7 +79,7 @@ namespace XBee.Frames.ATCommands
         DestinationHigh = 0x10000,
         [AT("DL", "Destination Address Low", ATValueType.Number, 0xFFFFFFFF)]
         DestinationLow,
-        [AT("MY", "16-bit Network Address", ATValueType.Number, 0xFFFE)]
+        [AT("MY", "16-bit Network Address", ATValueType.Number, 0xFFFF)]
         MyNetworkAddress,
         [AT("MP", "16-bit Parent Network Address", ApiVersion.S2, ATValueType.Number, 0xFFFE)]
         ParentAddress,
@@ -189,9 +189,9 @@ namespace XBee.Frames.ATCommands
         ApiEnable,
         [AT("AO", "API Options", ApiVersion.S2, ATValueType.Number, 0x03)]
         ApiOptions,
-        [AT("BD", "Interface Data Rate", ATValueType.Number, 0xE1000)]
+        [AT("BD", "Interface Data Rate", ATValueType.Number, 0x07)]
         BaudRate,
-        [AT("NB", "Serial Parity", ATValueType.Number, 0x03)]
+        [AT("NB", "Serial Parity", ATValueType.Number, 0x04)]
         Parity,
         [AT("SB", "Stop Bits", ApiVersion.S2, ATValueType.Number, 0x01)]
         StopBits,
@@ -211,7 +211,7 @@ namespace XBee.Frames.ATCommands
         DigitalOutputLevel,
         [AT("IR", "IO Sample Rate", ATValueType.Number, 0xFFFF)]
         IOSampleRate,
-        [AT("IC", "IO Digital Change Detection", ATValueType.Number, 0x0FFF)]
+        [AT("IC", "IO Digital Change Detection", ATValueType.Number, 0xFF)]
         IOChangeDetection,
         [AT("IA", "I/O Input Address", ApiVersion.S1, ATValueType.Number, 0xFFFFFFFFFFFFFFFF)]
         IOInputAddress,
@@ -291,7 +291,7 @@ namespace XBee.Frames.ATCommands
         AckFailures,
 
         // AT Command Options
-        [AT("CT", "Command Mode Timeout", ATValueType.Number, 0x028F)]
+        [AT("CT", "Command Mode Timeout", ATValueType.Number, 0xFFFF)]
         CommandModeTimeout,
         [AT("CN", "Exit Command Mode", ATValueType.None)]
         ExitCommandMode,
@@ -305,13 +305,13 @@ namespace XBee.Frames.ATCommands
         SleepMode,
         [AT("SN", "Number of Sleep Periods", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         NumberOfSleepPeriods,
-        [AT("SP", "Sleep Period", ATValueType.Number, 0x0AF0)]
+        [AT("SP", "Cyclic Sleep Period", ATValueType.Number, 0x68B0)]
         SleepPeriod,
         [AT("DP", "Disassociated Cyclic Sleep Period", ApiVersion.S1, ATValueType.Number, 0x68B0)]
         DisassociateSleepPeriod,
         [AT("ST", "Time Before Sleep", ATValueType.Number, 0xFFFE)]
         TimeBeforeSleep,
-        [AT("SO", "Sleep Options", ATValueType.Number, 0x06)]
+        [AT("SO", "Sleep Options", ATValueType.Number, 0x04)]
         SleepOptions,
         [AT("WH", "Wake Host", ApiVersion.S2, ATValueType.Number, 0xFFFF)]
         WakeHost,
@@ -337,9 +337,9 @@ namespace XBee.Frames.ATCommands
         NodeDiscover,
         [AT("ND", "Node Discover", ApiVersion.S2, ATValueType.NodeDiscoverZB)]
         NodeDiscoverZB,
-        [AT("DN", "Destination Node", ATValueType.Number)]
+        [AT("DN", "Destination Node", ATValueType.None)]
         DestinationNode,
-        [AT("IS", "Force Sample", ATValueType.None)]
+        [AT("IS", "Force Sample", ATValueType.None, 0xFF)]
         ForceSample,
         [AT("1S", "XBee Sensor Sample", ApiVersion.S2, ATValueType.None)]
         SensorSample,
