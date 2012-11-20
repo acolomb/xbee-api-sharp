@@ -74,7 +74,20 @@ namespace XBee
                 frame.FrameId = ++frameId; //FIXME
             }
 
-            var packet = new XBeePacket(frame, apiVersion);
+            XBeePacket packet;
+            switch (ApiType)
+            {
+            case ApiTypeValue.Disabled:
+            case ApiTypeValue.Enabled:
+                packet = new XBeePacket(frame, ApiVersion);
+                break;
+            case ApiTypeValue.EnabledWithEscape:
+                packet = new XBeeEscapedPacket(frame, ApiVersion);
+                break;
+            default:
+                throw new XBeeException("Invalid API Type");
+            }
+
             packet.Assemble();
             if (connection == null)
                 throw new XBeeException("No connection set for this XBee yet.");
