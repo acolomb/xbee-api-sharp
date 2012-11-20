@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -16,28 +16,28 @@ namespace XBee
         private static Dictionary<XBeeAPICommandId, Type> CreateFramesMap()
         {
             var map = new Dictionary<XBeeAPICommandId, Type> {
-                {XBeeAPICommandId.TRANSMIT_REQUEST_64,                      typeof (TransmitRequest64)},
-                {XBeeAPICommandId.TRANSMIT_REQUEST_16,                      typeof (TransmitRequest16)},
-                {XBeeAPICommandId.AT_COMMAND_REQUEST,                       typeof (ATCommand)},
-                {XBeeAPICommandId.AT_COMMAND_QUEUE_REQUEST,                 typeof (ATQueueCommand)},
-                {XBeeAPICommandId.ZIGBEE_TRANSMIT_REQUEST,                  typeof (ZigBeeTransmitRequest)},
-                {XBeeAPICommandId.EXPLICIT_ADDR_REQUEST,                    typeof (ExplicitAddressingTransmit)},
-                {XBeeAPICommandId.REMOTE_AT_COMMAND_REQUEST,                typeof (RemoteATCommand)},
-                {XBeeAPICommandId.CREATE_SOURCE_ROUTE,                      typeof (CreateSourceRoute)},
-                {XBeeAPICommandId.RECEIVE_64_RESPONSE,                      typeof (ReceivePacket64)},
-                {XBeeAPICommandId.RECEIVE_16_RESPONSE,                      typeof (ReceivePacket16)},
-                {XBeeAPICommandId.RECEIVE_IO_64_RESPONSE,                   typeof (ReceiveIOPacket64)},
-                {XBeeAPICommandId.RECEIVE_IO_16_RESPONSE,                   typeof (ReceiveIOPacket16)},
-                {XBeeAPICommandId.AT_COMMAND_RESPONSE,                      typeof (ATCommandResponse)},
-                {XBeeAPICommandId.TRANSMIT_STATUS_RESPONSE,                 typeof (TransmitStatus)},
+                {XBeeAPICommandId.TX_REQUEST_64,                            typeof (TransmitRequest64)},
+                {XBeeAPICommandId.TX_REQUEST_16,                            typeof (TransmitRequest16)},
+                {XBeeAPICommandId.AT_COMMAND,                               typeof (ATCommand)},
+                {XBeeAPICommandId.AT_COMMAND_QUEUE,                         typeof (ATQueueCommand)},
+                {XBeeAPICommandId.ZIGBEE_TX_REQUEST,                        typeof (ZigBeeTransmitRequest)},
+                {XBeeAPICommandId.ZIGBEE_EXPLICIT_TX_REQUEST,               typeof (ExplicitAddressingTransmit)},
+                {XBeeAPICommandId.REMOTE_AT_REQUEST,                        typeof (RemoteATCommand)},
+                {XBeeAPICommandId.FIXME_CREATE_SOURCE_ROUTE,                typeof (CreateSourceRoute)},
+                {XBeeAPICommandId.RX_64_RESPONSE,                           typeof (ReceivePacket64)},
+                {XBeeAPICommandId.RX_16_RESPONSE,                           typeof (ReceivePacket16)},
+                {XBeeAPICommandId.RX_64_IO_RESPONSE,                        typeof (ReceiveIOPacket64)},
+                {XBeeAPICommandId.RX_16_IO_RESPONSE,                        typeof (ReceiveIOPacket16)},
+                {XBeeAPICommandId.AT_RESPONSE,                              typeof (ATCommandResponse)},
+                {XBeeAPICommandId.TX_STATUS_RESPONSE,                       typeof (TransmitStatus)},
                 {XBeeAPICommandId.MODEM_STATUS_RESPONSE,                    typeof (ModemStatus)},
-                {XBeeAPICommandId.ZIGBEE_TRANSMIT_STATUS_RESPONSE,          typeof (ZigBeeTransmitStatus)},
-                {XBeeAPICommandId.ZIGBEE_RECEIVE_PACKET_RESPONSE,           typeof (ZigBeeReceivePacket)},
-                {XBeeAPICommandId.ZIGBEE_EXPLICIT_RX_INDICATOR_RESPONSE,    typeof (ZigBeeExplicitRXIndicator)},
+                {XBeeAPICommandId.ZIGBEE_TX_STATUS_RESPONSE,                typeof (ZigBeeTransmitStatus)},
+                {XBeeAPICommandId.ZIGBEE_RX_RESPONSE,                       typeof (ZigBeeReceivePacket)},
+                {XBeeAPICommandId.ZIGBEE_EXPLICIT_RX_RESPONSE,              typeof (ZigBeeExplicitRXIndicator)},
                 {XBeeAPICommandId.ZIGBEE_IO_SAMPLE_RESPONSE,                typeof (ZigBeeIODataSample)},
                 {XBeeAPICommandId.XBEE_SENSOR_READ_INDICATOR,               typeof (SensorReadIndicator)},
-                {XBeeAPICommandId.NODE_IDENTIFICATION_RESPONSE,             typeof (NodeIdentification)},
-                {XBeeAPICommandId.REMOTE_AT_COMMAND_RESPONSE,               typeof (RemoteCommandResponse)},
+                {XBeeAPICommandId.ZIGBEE_NODE_IDENTIFICATION_RESPONSE,      typeof (NodeIdentification)},
+                {XBeeAPICommandId.REMOTE_AT_RESPONSE,                       typeof (RemoteCommandResponse)},
                 {XBeeAPICommandId.FIRMWARE_UPDATE_STATUS,                   typeof (OverAirUpdateStatus)},
                 {XBeeAPICommandId.ROUTE_RECORD_INDICATOR,                   typeof (RouteRecordIndicator)},
                 {XBeeAPICommandId.MANYTOONE_ROUTE_REQUEST_INDICATOR,        typeof (ManyToOneRouteRequest)}

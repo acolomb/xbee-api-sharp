@@ -12,7 +12,7 @@ namespace XBee.Frames
         public RemoteCommandResponse(PacketParser parser) :
             base(parser)
         {
-            CommandId = XBeeAPICommandId.REMOTE_AT_COMMAND_RESPONSE;
+            CommandId = XBeeAPICommandId.REMOTE_AT_RESPONSE;
         }
 
         public override byte[] ToByteArray()

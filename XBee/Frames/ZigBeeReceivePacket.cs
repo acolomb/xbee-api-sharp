@@ -15,7 +15,7 @@ namespace XBee.Frames
         public ZigBeeReceivePacket(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.ZIGBEE_RECEIVE_PACKET_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_RX_RESPONSE;
         }
 
         public override byte[] ToByteArray()

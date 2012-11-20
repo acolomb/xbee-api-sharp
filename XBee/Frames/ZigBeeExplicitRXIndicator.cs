@@ -22,7 +22,7 @@ namespace XBee.Frames
         public ZigBeeExplicitRXIndicator(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.ZIGBEE_EXPLICIT_RX_INDICATOR_RESPONSE;
+            CommandId = XBeeAPICommandId.ZIGBEE_EXPLICIT_RX_RESPONSE;
         }
 
         public override byte[] ToByteArray()

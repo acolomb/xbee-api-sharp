@@ -19,14 +19,14 @@ namespace XBee.Frames
         public CreateSourceRoute(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.CREATE_SOURCE_ROUTE;
+            CommandId = XBeeAPICommandId.FIXME_CREATE_SOURCE_ROUTE;
             RouteOptions = 0x00;
             FrameId = 0x00;
         }
 
         public CreateSourceRoute(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.CREATE_SOURCE_ROUTE;
+            CommandId = XBeeAPICommandId.FIXME_CREATE_SOURCE_ROUTE;
             this.destination = destination;
             RouteOptions = 0x00;
             FrameId = 0x00;

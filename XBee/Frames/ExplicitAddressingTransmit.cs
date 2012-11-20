@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using XBee.Exceptions;
 
@@ -33,12 +33,12 @@ namespace XBee.Frames
         public ExplicitAddressingTransmit(PacketParser parser)
         {
             this.parser = parser;
-            CommandId = XBeeAPICommandId.EXPLICIT_ADDR_REQUEST;
+            CommandId = XBeeAPICommandId.ZIGBEE_EXPLICIT_TX_REQUEST;
         }
 
         public ExplicitAddressingTransmit(XBeeNode destination)
         {
-            CommandId = XBeeAPICommandId.EXPLICIT_ADDR_REQUEST;
+            CommandId = XBeeAPICommandId.ZIGBEE_EXPLICIT_TX_REQUEST;
             this.destination = destination;
             BroadcastRadius = 0;
             Options = 0;
