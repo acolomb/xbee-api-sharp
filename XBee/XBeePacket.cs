@@ -7,7 +7,12 @@ namespace XBee
     public class XBeePacket
     {
         private readonly byte[] frameData;
-        public byte[] Data { get; private set; }
+        private MemoryStream packetStream = new MemoryStream();
+
+        public byte[] Data {
+            get { return packetStream.ToArray(); }
+            private set { packetStream = new MemoryStream(value); }
+        }
 
         public XBeePacket(XBeeFrame frame, ApiVersion apiVersion = ApiVersion.Unknown)
         {
@@ -22,22 +27,25 @@ namespace XBee
 
         public void Assemble()
         {
-            var data = new MemoryStream();
+            packetStream = new MemoryStream();
 
-            data.WriteByte((byte) XBeeSpecialBytes.StartByte);
+            packetStream.WriteByte((byte) XBeeSpecialBytes.StartByte);
 
             var packetLength = BitConverter.GetBytes((ushort)frameData.Length);
-            if (BitConverter.IsLittleEndian) Array.Reverse(packetLength);
+            var firstOffset = BitConverter.IsLittleEndian ? 1 : 0;
+            WriteByte(packetLength[firstOffset]);
+            WriteByte(packetLength[firstOffset ^ 1]);
 
-            data.WriteByte(packetLength[0]);
-            data.WriteByte(packetLength[1]);
+            foreach (var b in frameData) {
+                WriteByte(b);
+            }
 
-            data.Write(frameData, 0, frameData.Length);
-
-            data.WriteByte(XBeeChecksum.Calculate(frameData));
-
-            Data = data.ToArray();
+            WriteByte(XBeeChecksum.Calculate(frameData));
         }
 
+        protected virtual void WriteByte(byte b)
+        {
+            packetStream.WriteByte((byte) b);
+        }
     }
 }
