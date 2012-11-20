@@ -98,6 +98,7 @@
     <Compile Include="Frames\ReceiveIOPacket16.cs" />
     <Compile Include="Frames\TransmitStatus.cs" />
     <Compile Include="XBeeEscapeCharacters.cs" />
+    <Compile Include="XBeeEscapedPacket.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
