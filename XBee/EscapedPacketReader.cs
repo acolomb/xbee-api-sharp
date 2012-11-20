@@ -18,30 +18,5 @@ namespace XBee
             }
             base.WriteByte(b);
         }
-
-        public MemoryStream EscapeData(byte[] data)
-        {
-            var escapeNext = false;
-            var escapedData = new MemoryStream();
-            foreach (var b in data) {
-                if (XBeeEscapeCharacters.IsSpecialByte(b)) {
-                    if (b == (byte) XBeeSpecialBytes.EscapeByte) {
-                        escapeNext = true;
-                        continue;
-                    }
-                    if (b == (byte) XBeeSpecialBytes.StartByte) {
-                        continue;
-                    }
-                }
-
-                if (escapeNext) {
-                    escapedData.WriteByte(XBeeEscapeCharacters.EscapeByte(b));
-                    escapeNext = false;
-                } else {
-                    escapedData.WriteByte(b);
-                }
-            }
-            return escapedData;
-        }
     }
 }
