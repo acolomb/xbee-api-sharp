@@ -9,7 +9,10 @@ namespace XBee.Sample
     {
         static void Main(string[] args)
         {
-            var bee = new XBee {ApiType = ApiTypeValue.Enabled};
+            var bee = new XBee {
+                ApiType = ApiTypeValue.Enabled,
+                ApiVersion = ApiVersion.S2
+            };
             bee.SetConnection(new SerialConnection("COM4", 9600));
 
             XBeeFrame frame;
