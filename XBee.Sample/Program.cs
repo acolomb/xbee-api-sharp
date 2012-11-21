@@ -22,7 +22,9 @@ namespace XBee.Sample
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
                 var value = (ATLongValue) atResponse.Value;
-                if (value != null) Console.WriteLine("API type: {0}", value.Value);
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.BaudRate) { FrameId = 1 };
@@ -30,7 +32,9 @@ namespace XBee.Sample
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
                 var value = (ATLongValue) atResponse.Value;
-                if (value != null) Console.WriteLine("Baud rate: {0}", value.Value);
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.MaximumPayloadLength) { FrameId = 1 };
@@ -38,7 +42,9 @@ namespace XBee.Sample
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
                 var value = (ATLongValue) atResponse.Value;
-                if (value != null) Console.WriteLine("Maximum Payload is: {0}", value.Value);
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
@@ -46,7 +52,9 @@ namespace XBee.Sample
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
                 var value = (ATLongValue) atResponse.Value;
-                if (value != null) Console.WriteLine("Firmware Version: {0:X4}", value.Value);
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString("X4"));
             }
 
             request = new ATCommand(AT.NodeDiscover) { FrameId = 1 };
