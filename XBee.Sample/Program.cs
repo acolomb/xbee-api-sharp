@@ -12,25 +12,39 @@ namespace XBee.Sample
             var bee = new XBee {ApiType = ApiTypeValue.Enabled};
             bee.SetConnection(new SerialConnection("COM4", 9600));
 
+            XBeeFrame frame;
+
             var request = new ATCommand(AT.ApiEnable) { FrameId = 1 };
-            var frame = bee.ExecuteQuery(request, 1000);
-            var value = ((ATCommandResponse) frame).Value;
-            Console.WriteLine(String.Format("API type: {0}", ((ATLongValue) value).Value));
+            frame = bee.ExecuteQuery(request, 1000);
+            if (frame != null) {
+                var atResponse = (ATCommandResponse) frame;
+                var value = (ATLongValue) atResponse.Value;
+                if (value != null) Console.WriteLine(String.Format("API type: {0}", value.Value));
+            }
 
             request = new ATCommand(AT.BaudRate) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
-            value = ((ATCommandResponse) frame).Value;
-            Console.WriteLine(String.Format("Baud rate: {0}", ((ATLongValue) value).Value));
+            if (frame != null) {
+                var atResponse = (ATCommandResponse) frame;
+                var value = (ATLongValue) atResponse.Value;
+                if (value != null) Console.WriteLine(String.Format("Baud rate: {0}", value.Value));
+            }
 
             request = new ATCommand(AT.MaximumPayloadLength) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
-            value = ((ATCommandResponse) frame).Value;
-            Console.WriteLine(String.Format("Maximum Payload is: {0}", ((ATLongValue) value).Value));
+            if (frame != null) {
+                var atResponse = (ATCommandResponse) frame;
+                var value = (ATLongValue) atResponse.Value;
+                if (value != null) Console.WriteLine(String.Format("Maximum Payload is: {0}", value.Value));
+            }
 
             request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
-            value = ((ATCommandResponse) frame).Value;
-            Console.WriteLine(String.Format("Firmware Version: {0:X4}", ((ATLongValue) value).Value));
+            if (frame != null) {
+                var atResponse = (ATCommandResponse) frame;
+                var value = (ATLongValue) atResponse.Value;
+                if (value != null) Console.WriteLine(String.Format("Firmware Version: {0:X4}", value.Value));
+            }
 
             request = new ATCommand(AT.NodeDiscover) { FrameId = 1 };
             bee.Execute(request);
