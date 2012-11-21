@@ -27,6 +27,8 @@ namespace XBee
         private ApiTypeValue apiType = ApiTypeValue.Enabled;
         private ApiVersion apiVersion;
 
+        public event FrameReceivedHandler FrameReceived;
+
         public XBee()
         {
             reader = PacketReaderFactory.GetReader(apiType);
@@ -141,6 +143,9 @@ namespace XBee
             frameReceived = true;
             lastFrame = args.Response;
             logger.Debug(args.Response);
+
+            if (FrameReceived != null)
+                FrameReceived.Invoke(this, args);
         }
 
         private void ReceiveData()
