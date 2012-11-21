@@ -83,9 +83,12 @@ namespace XBee.Sample
             var pan = (ATPanDescriptorValue) atResponse.Value;
             if (pan == null) {
                 (sender as XBeeResponseTracker).UnregisterResponseHandler(atResponse.FrameId);
-                Console.WriteLine("{0} status: {1}, end of records", atResponse.Command, atResponse.CommandStatus);
+                Console.WriteLine("{0} status: {1}, end of records",
+                                  atResponse.Command, atResponse.CommandStatus);
             } else {
-                Console.WriteLine("{0} status: {1}, PAN ID {2}", atResponse.Command, atResponse.CommandStatus, pan.PanId);
+                Console.WriteLine("{0} status: {1}, PAN ID {2:X4}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  pan.PanId.Value);
             }
         }
 
@@ -95,9 +98,12 @@ namespace XBee.Sample
             var node = (ATNodeDiscoverValue) atResponse.Value;
             if (node == null) {
                 (sender as XBeeResponseTracker).UnregisterResponseHandler(atResponse.FrameId);
-                Console.WriteLine("{0} status: {1}, end of records", atResponse.Command, atResponse.CommandStatus);
+                Console.WriteLine("{0} status: {1}, end of records",
+                                  atResponse.Command, atResponse.CommandStatus);
             } else {
-                Console.WriteLine("{0} status: {1}, node {2}", atResponse.Command, atResponse.CommandStatus, node.NodeIdentifier.Value);
+                Console.WriteLine("{0} status: {1}, node {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  node.NodeIdentifier.Value);
             }
         }
     }
