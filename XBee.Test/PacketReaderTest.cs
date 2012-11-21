@@ -72,7 +72,7 @@ namespace XBee.Test
             Assert.That((frame as ATCommandResponse).Value, Is.Null);
         }
 
-        private void FrameReceivedEvent(object sender, FrameReceivedArgs args)
+        private void FrameReceivedEvent(object sender, FrameReceivedEventArgs args)
         {
             frames.Enqueue(args.Response);
         }

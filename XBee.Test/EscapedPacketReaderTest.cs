@@ -37,7 +37,7 @@ namespace XBee.Test
             Assert.That(frame, Is.TypeOf<ZigBeeReceivePacket>());
         }
 
-        private void FrameReceivedEvent(object sender, FrameReceivedArgs args)
+        private void FrameReceivedEvent(object sender, FrameReceivedEventArgs args)
         {
             frame = args.Response;
         }

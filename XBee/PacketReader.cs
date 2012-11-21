@@ -82,7 +82,7 @@ namespace XBee
                 var frame = XBeePacketUnmarshaler.Unmarshal(packetStream.ToArray(), ApiVersion);
                 packetLength = 0;
                 if (FrameReceived != null)
-                    FrameReceived.Invoke(this, new FrameReceivedArgs(frame));
+                    FrameReceived.Invoke(this, new FrameReceivedEventArgs(frame));
             } catch (XBeeFrameException ex) {
                 throw new XBeeException("Unable to unmarshal packet.", ex);
             }
