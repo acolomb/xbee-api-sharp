@@ -21,13 +21,13 @@ namespace XBee
         private Thread receiveThread;
         private bool stopThread;
 
-        private byte frameId = byte.MinValue; //FIXME
-
         private bool frameReceived = false;
         private XBeeFrame lastFrame = null;
         private IPacketReader reader;
         private ApiTypeValue apiType = ApiTypeValue.Enabled;
         private ApiVersion apiVersion;
+
+        public event FrameReceivedHandler FrameReceived;
 
         public XBee()
         {
@@ -67,13 +67,6 @@ namespace XBee
 
         public void Execute(XBeeFrame frame)
         {
-            if (frame.FrameId != 0) {
-                if (frameId == byte.MaxValue)
-                    frameId = byte.MinValue;
-
-                frame.FrameId = ++frameId; //FIXME
-            }
-
             XBeePacket packet;
             switch (ApiType)
             {
@@ -111,7 +104,7 @@ namespace XBee
 
         public XBeeFrame ExecuteQuery(XBeeFrame frame, int timeout)
         {
-            if (frame.FrameId == 0)
+            if (frame.FrameId == XBeeResponseTracker.NoResponseFrameId)
                 throw new XBeeFrameException("FrameId cannot be zero on a synchronous request.");
 
             lastFrame = null;
@@ -150,6 +143,9 @@ namespace XBee
             frameReceived = true;
             lastFrame = args.Response;
             logger.Debug(args.Response);
+
+            if (FrameReceived != null)
+                FrameReceived.Invoke(this, args);
         }
 
         private void ReceiveData()
