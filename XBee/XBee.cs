@@ -31,17 +31,22 @@ namespace XBee
 
         public XBee()
         {
-            reader = PacketReaderFactory.GetReader(apiType);
+            InitPacketReader();
+        }
+
+        public XBee(ApiTypeValue type)
+        {
+            ApiType = type;
         }
 
         public ApiTypeValue ApiType
         {
             get { return apiType; }
-            set
-            {
-                apiType = value;
-                reader = PacketReaderFactory.GetReader(apiType);
-                reader.FrameReceived += FrameReceivedEvent;
+            set {
+                if (apiType != value) {
+                    apiType = value;
+                    InitPacketReader();
+                }
             }
         }
 
@@ -49,6 +54,13 @@ namespace XBee
         {
             get { return apiVersion; }
             set { reader.ApiVersion = apiVersion = value; }
+        }
+        
+        private void InitPacketReader()
+        {
+            reader = PacketReaderFactory.GetReader(apiType);
+            reader.ApiVersion = ApiVersion;
+            reader.FrameReceived += FrameReceivedEvent;
         }
         
         public void SetConnection(IXBeeConnection connection)
