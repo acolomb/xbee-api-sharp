@@ -10,45 +10,52 @@ namespace XBee.Sample
     {
         static void Main(string[] args)
         {
-            var bee = new XBee {ApiType = ApiTypeValue.EnabledWithEscape};
-            bee.ApiVersion = ApiVersion.S1;
+            var bee = new XBee {
+                ApiType = ApiTypeValue.EnabledWithEscape,
+                ApiVersion = ApiVersion.S1
+            };
             bee.SetConnection(new SerialConnection("COM10", 115200));
 
+            XBeeFrame frame;
+
             var request = new ATCommand(AT.ApiEnable) { FrameId = 1 };
-            var frame = bee.ExecuteQuery(request, 1000);
-            ATValue value;
+            frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                Console.WriteLine(String.Format("AT{0} status: {1}", atResponse.Command, atResponse.CommandStatus));
-                value = ((ATCommandResponse) frame).Value;
-                Console.WriteLine(String.Format("API type: {0}", ((ATLongValue) value).Value));
+                var value = (ATLongValue) atResponse.Value;
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.BaudRate) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                Console.WriteLine(String.Format("AT{0} status: {1}", atResponse.Command, atResponse.CommandStatus));
-                value = ((ATCommandResponse) frame).Value;
-                if (value != null) Console.WriteLine(String.Format("Baud rate: {0}", ((ATLongValue) value).Value));
+                var value = (ATLongValue) atResponse.Value;
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.MyNetworkAddress) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                Console.WriteLine(String.Format("AT{0} status: {1}", atResponse.Command, atResponse.CommandStatus));
-                value = ((ATCommandResponse) frame).Value;
-                if (value != null) Console.WriteLine(String.Format("My short address: {0:X4}", ((ATLongValue) value).Value));
+                var value = (ATLongValue) atResponse.Value;
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString());
             }
 
             request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                Console.WriteLine(String.Format("{0} status: {1}", atResponse.Command, atResponse.CommandStatus));
-                value = ((ATCommandResponse) frame).Value;
-                if (value != null) Console.WriteLine(String.Format("Firmware Version: {0:X4}", ((ATLongValue) value).Value));
+                var value = (ATLongValue) atResponse.Value;
+                Console.WriteLine("{0} status: {1}, result: {2}",
+                                  atResponse.Command, atResponse.CommandStatus,
+                                  value == null ? "<none>" : value.Value.ToString("X4"));
             }
 
             request = new ATCommand(AT.DestinationNode) { FrameId = 1 };
