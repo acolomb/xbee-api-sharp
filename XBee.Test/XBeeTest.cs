@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Moq;
 using XBee.Frames;
 using XBee.Frames.ATCommands;
@@ -14,7 +14,7 @@ namespace XBee.Test
             var xbee = new XBee() { ApiType = ApiTypeValue.Enabled };
             var conn = new Mock<IXBeeConnection>();
             var frame = new Mock<XBeeFrame>();
-            conn.Setup(connection => connection.Write(It.IsAny<byte[]>())).Callback(() => xbee.FrameReceivedEvent(this, new FrameReceivedArgs(frame.Object)));
+            conn.Setup(connection => connection.Write(It.IsAny<byte[]>())).Callback(() => xbee.FrameReceivedEvent(this, new FrameReceivedEventArgs(frame.Object)));
 
             xbee.SetConnection(conn.Object);
             var result = xbee.ExecuteQuery(new ATCommand(AT.BaudRate) { FrameId = 1 });

@@ -138,7 +138,7 @@ namespace XBee
             }
         }
 
-        public void FrameReceivedEvent(object sender, FrameReceivedArgs args)
+        public void FrameReceivedEvent(object sender, FrameReceivedEventArgs args)
         {
             frameReceived = true;
             lastFrame = args.Response;

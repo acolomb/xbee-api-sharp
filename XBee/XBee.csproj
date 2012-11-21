@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\XBeeException.cs" />
     <Compile Include="Exceptions\XBeeFrameException.cs" />
-    <Compile Include="FrameReceivedArgs.cs" />
     <Compile Include="Frames\ATQueueCommand.cs" />
     <Compile Include="Frames\CreateSourceRoute.cs" />
     <Compile Include="Frames\ManyToOneRouteRequest.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="Frames\TransmitStatus.cs" />
     <Compile Include="XBeeEscapeCharacters.cs" />
     <Compile Include="XBeeEscapedPacket.cs" />
+    <Compile Include="FrameReceivedEventArgs.cs" />
     <Compile Include="XBeeResponseTracker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

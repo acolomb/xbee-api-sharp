@@ -1,10 +1,12 @@
+using System;
+
 namespace XBee
 {
-    public class FrameReceivedArgs
+    public class FrameReceivedEventArgs : EventArgs
     {
         public XBeeFrame Response { get; private set; }
 
-        public FrameReceivedArgs(XBeeFrame response)
+        public FrameReceivedEventArgs(XBeeFrame response)
         {
             Response = response;
         }
