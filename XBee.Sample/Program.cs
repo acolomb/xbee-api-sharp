@@ -21,40 +21,40 @@ namespace XBee.Sample
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                var value = (ATLongValue) atResponse.Value;
+                var param = (ATLongValue) atResponse.Value;
                 Console.WriteLine("{0} status: {1}, result: {2}",
                                   atResponse.Command, atResponse.CommandStatus,
-                                  value == null ? "<none>" : value.Value.ToString());
+                                  param == null ? "<none>" : param.Value.ToString());
             }
 
             request = new ATCommand(AT.BaudRate) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                var value = (ATLongValue) atResponse.Value;
+                var param = (ATLongValue) atResponse.Value;
                 Console.WriteLine("{0} status: {1}, result: {2}",
                                   atResponse.Command, atResponse.CommandStatus,
-                                  value == null ? "<none>" : value.Value.ToString());
+                                  param == null ? "<none>" : param.Value.ToString());
             }
 
             request = new ATCommand(AT.MaximumPayloadLength) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                var value = (ATLongValue) atResponse.Value;
+                var param = (ATLongValue) atResponse.Value;
                 Console.WriteLine("{0} status: {1}, result: {2}",
                                   atResponse.Command, atResponse.CommandStatus,
-                                  value == null ? "<none>" : value.Value.ToString());
+                                  param == null ? "<none>" : param.Value.ToString());
             }
 
             request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
-                var value = (ATLongValue) atResponse.Value;
+                var param = (ATLongValue) atResponse.Value;
                 Console.WriteLine("{0} status: {1}, result: {2}",
                                   atResponse.Command, atResponse.CommandStatus,
-                                  value == null ? "<none>" : value.Value.ToString("X4"));
+                                  param == null ? "<none>" : param.Value.ToString("X4"));
             }
 
             request = new ATCommand(AT.NodeDiscover) { FrameId = 1 };
