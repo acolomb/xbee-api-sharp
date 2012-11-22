@@ -139,7 +139,8 @@ namespace XBee
                 });
 
             Execute(frame);
-            frameReceived.WaitOne();
+            frameReceived.WaitOne(timeout);
+            ResponseTracker.UnregisterResponseHandler(frame.FrameId);
 
             return response;
         }
