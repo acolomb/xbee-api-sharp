@@ -11,10 +11,17 @@ namespace XBee
         private readonly SerialPort serialPort;
         private IPacketReader reader;
 
+        public Handshake FlowControl {
+            get { return serialPort.Handshake; }
+            set { serialPort.Handshake = value; }
+        }
+
         public SerialConnection(string port, int baudRate)
         {
             serialPort = new SerialPort(port, baudRate);
             serialPort.DataReceived += ReceiveData;
+
+            FlowControl = Handshake.RequestToSend;
         }
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
