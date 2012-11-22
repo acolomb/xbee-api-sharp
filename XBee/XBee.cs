@@ -127,11 +127,9 @@ namespace XBee
 
         public XBeeFrame ExecuteQuery(XBeeFrame frame, int timeout)
         {
-            if (frame.FrameId == XBeeResponseTracker.NoResponseFrameId)
-                throw new XBeeFrameException("FrameId cannot be zero on a synchronous request.");
-
-            var frameReceived = new AutoResetEvent(false);
             XBeeFrame response = null;
+            var frameReceived = new AutoResetEvent(false);
+
             frame.FrameId = ResponseTracker.RegisterResponseHandler(
                 delegate (object sender, FrameReceivedEventArgs args) {
                     response = args.Response;
