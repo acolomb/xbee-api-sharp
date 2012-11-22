@@ -131,7 +131,7 @@ namespace XBee
             var frameReceived = new AutoResetEvent(false);
 
             frame.FrameId = ResponseTracker.RegisterResponseHandler(
-                delegate (object sender, FrameReceivedEventArgs args) {
+                delegate (XBeeResponseTracker sender, FrameReceivedEventArgs args) {
                     response = args.Response;
                     frameReceived.Set();
                 });
