@@ -140,6 +140,12 @@ namespace XBee
             return response;
         }
 
+        public void ExecuteQueryAsync(XBeeFrame frame, ResponseReceivedHandler responseCallback)
+        {
+            frame.FrameId = ResponseTracker.RegisterResponseHandler(responseCallback);
+            Execute(frame);
+        }
+
         public void StopReceiveDataThread()
         {
             try {

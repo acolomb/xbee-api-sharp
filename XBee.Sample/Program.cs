@@ -60,10 +60,10 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString("X4"));
             }
 
-            request = new ATCommand(AT.ActiveScan) { FrameId = bee.ResponseTracker.RegisterResponseHandler(HandleActiveScan) };
-            bee.Execute(request);
-            request = new ATCommand(AT.NodeDiscover) { FrameId = bee.ResponseTracker.RegisterResponseHandler(HandleNodeDiscover) };
-            bee.Execute(request);
+            request = new ATCommand(AT.ActiveScan);
+            bee.ExecuteQueryAsync(request, HandleActiveScan);
+            request = new ATCommand(AT.NodeDiscover);
+            bee.ExecuteQueryAsync(request, HandleNodeDiscover);
 
             while (true) {
                 Thread.Sleep(100);
