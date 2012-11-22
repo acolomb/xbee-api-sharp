@@ -15,8 +15,10 @@ namespace XBee.Sample
                 ApiVersion = ApiVersion.S2
             };
             bee.SetConnection(new SerialConnection("COM4", 9600));
-
+            // Callback for unexpected response with unknown frame ID
             bee.ResponseTracker.UnexpectedResponse += HandleAnyFrame;
+            // Callback for received frame without frame ID
+            bee.FrameReceived += HandleAnyFrame;
 
             XBeeFrame frame;
 
