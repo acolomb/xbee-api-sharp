@@ -78,10 +78,7 @@ namespace XBee
 
         public XBeeResponseTracker ResponseTracker {
             get {
-                if (tracker == null) {
-                    tracker = new XBeeResponseTracker();
-                    reader.FrameReceived += tracker.HandleFrameReceived;
-                }
+                if (tracker == null) tracker = new XBeeResponseTracker();
                 return tracker;
             }
         }
@@ -163,8 +160,13 @@ namespace XBee
         {
             logger.Debug(args.Response);
 
-            if (FrameReceived != null)
-                FrameReceived.Invoke(this, args);
+            if (args.Response.FrameId == XBeeResponseTracker.NoResponseFrameId
+                || tracker == null) {
+                if (FrameReceived != null)
+                    FrameReceived.Invoke(this, args);
+            } else {
+                tracker.HandleFrameReceived(this, args);
+            }
         }
 
         private void ReceiveData()
