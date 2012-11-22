@@ -20,7 +20,7 @@ namespace XBee.Sample
 
             XBeeFrame frame;
 
-            var request = new ATCommand(AT.ApiEnable) { FrameId = 1 };
+            var request = new ATCommand(AT.ApiEnable);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -30,7 +30,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.BaudRate) { FrameId = 1 };
+            request = new ATCommand(AT.BaudRate);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -40,7 +40,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.MaximumPayloadLength) { FrameId = 1 };
+            request = new ATCommand(AT.MaximumPayloadLength);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -50,7 +50,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
+            request = new ATCommand(AT.FirmwareVersion);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
