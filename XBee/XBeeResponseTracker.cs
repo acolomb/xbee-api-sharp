@@ -39,6 +39,8 @@ namespace XBee
             }
         }
 
+        public event ResponseReceivedHandler UnexpectedResponse;
+
         public XBeeResponseTracker()
         {
             callbacks = new ConcurrentDictionary<byte, ResponseReceivedHandler>();
@@ -82,6 +84,8 @@ namespace XBee
             ResponseReceivedHandler handler;
             if (callbacks.TryGetValue(args.Response.FrameId, out handler)) {
                 handler.Invoke(this, args);
+            } else if (UnexpectedResponse != null) {
+                UnexpectedResponse.Invoke(this, args);
             }
         }
     }
