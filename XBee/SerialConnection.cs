@@ -16,6 +16,10 @@ namespace XBee
             set { serialPort.Handshake = value; }
         }
 
+        public bool IsOpen {
+            get { return serialPort.IsOpen; }
+        }
+
         public SerialConnection(string port, int baudRate)
         {
             serialPort = new SerialPort(port, baudRate);

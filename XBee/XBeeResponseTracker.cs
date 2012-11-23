@@ -4,6 +4,8 @@ using NLog;
 
 namespace XBee
 {
+    public delegate void ResponseReceivedHandler(XBeeResponseTracker sender, FrameReceivedEventArgs args);
+
     public class XBeeResponseTracker
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -12,7 +14,7 @@ namespace XBee
         public const byte DefaultFrameId    = 1;
         public const byte MaxFrameId        = byte.MaxValue;
 
-        private ConcurrentDictionary<byte, FrameReceivedHandler> callbacks;
+        private ConcurrentDictionary<byte, ResponseReceivedHandler> callbacks;
 
         private byte currentFrameId = DefaultFrameId;
         private object currentFrameIdLock = new Object();
@@ -37,19 +39,21 @@ namespace XBee
             }
         }
 
+        public event ResponseReceivedHandler UnexpectedResponse;
+
         public XBeeResponseTracker()
         {
-            callbacks = new ConcurrentDictionary<byte, FrameReceivedHandler>();
+            callbacks = new ConcurrentDictionary<byte, ResponseReceivedHandler>();
         }
 
-        public void RegisterDefaultFrameHandler(FrameReceivedHandler handler)
+        public void RegisterDefaultFrameHandler(ResponseReceivedHandler handler)
         {
             callbacks.AddOrUpdate(NoResponseFrameId, handler,
                                   (key, existingVal) => { return handler; });
             logger.Debug("Registered handler {0} for responses with Frame ID {1}.", handler.Method.Name, NoResponseFrameId);
         }
 
-        public byte RegisterResponseHandler(FrameReceivedHandler handler)
+        public byte RegisterResponseHandler(ResponseReceivedHandler handler)
         {
             if (callbacks.Count == MaxFrameId) {
                 logger.Warn("No Frame ID available. Handler {0} will not be called.", handler.Method.Name);
@@ -67,7 +71,7 @@ namespace XBee
         
         public void UnregisterResponseHandler(byte frameId)
         {
-            FrameReceivedHandler handler;
+            ResponseReceivedHandler handler;
             if (callbacks.TryRemove(frameId, out handler)) {
                 // recycle frame ID so it grows slower
                 NextFrameId = frameId;
@@ -77,9 +81,11 @@ namespace XBee
         
         public void HandleFrameReceived(object sender, FrameReceivedEventArgs args)
         {
-            FrameReceivedHandler handler;
+            ResponseReceivedHandler handler;
             if (callbacks.TryGetValue(args.Response.FrameId, out handler)) {
-                handler.Invoke(this, args);
+                handler(this, args);
+            } else if (UnexpectedResponse != null) {
+                UnexpectedResponse(this, args);
             }
         }
     }

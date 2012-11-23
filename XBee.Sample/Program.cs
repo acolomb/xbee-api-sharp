@@ -15,14 +15,14 @@ namespace XBee.Sample
                 ApiVersion = ApiVersion.S2
             };
             bee.SetConnection(new SerialConnection("COM4", 9600));
-
-            var tracker = new XBeeResponseTracker();
-            bee.FrameReceived += tracker.HandleFrameReceived;
-            tracker.RegisterDefaultFrameHandler(HandleAnyFrame);
+            // Callback for unexpected response with unknown frame ID
+            bee.ResponseTracker.UnexpectedResponse += HandleAnyFrame;
+            // Callback for received frame without frame ID
+            bee.FrameReceived += HandleAnyFrame;
 
             XBeeFrame frame;
 
-            var request = new ATCommand(AT.ApiEnable) { FrameId = 1 };
+            var request = new ATCommand(AT.ApiEnable);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -32,7 +32,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.BaudRate) { FrameId = 1 };
+            request = new ATCommand(AT.BaudRate);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -42,7 +42,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.MaximumPayloadLength) { FrameId = 1 };
+            request = new ATCommand(AT.MaximumPayloadLength);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -52,7 +52,7 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString());
             }
 
-            request = new ATCommand(AT.FirmwareVersion) { FrameId = 1 };
+            request = new ATCommand(AT.FirmwareVersion);
             frame = bee.ExecuteQuery(request, 1000);
             if (frame != null) {
                 var atResponse = (ATCommandResponse) frame;
@@ -62,10 +62,10 @@ namespace XBee.Sample
                                   param == null ? "<none>" : param.Value.ToString("X4"));
             }
 
-            request = new ATCommand(AT.ActiveScan) { FrameId = tracker.RegisterResponseHandler(HandleActiveScan) };
-            bee.Execute(request);
-            request = new ATCommand(AT.NodeDiscover) { FrameId = tracker.RegisterResponseHandler(HandleNodeDiscover) };
-            bee.Execute(request);
+            request = new ATCommand(AT.ActiveScan);
+            bee.ExecuteQueryAsync(request, HandleActiveScan);
+            request = new ATCommand(AT.NodeDiscover);
+            bee.ExecuteQueryAsync(request, HandleNodeDiscover);
 
             while (true) {
                 Thread.Sleep(100);
@@ -77,12 +77,12 @@ namespace XBee.Sample
             Console.WriteLine("Received {0} frame.", args.Response.CommandId);
         }
 
-        public static void HandleActiveScan(object sender, FrameReceivedEventArgs args)
+        public static void HandleActiveScan(XBeeResponseTracker sender, FrameReceivedEventArgs args)
         {
             var atResponse = (ATCommandResponse) args.Response;
             var pan = (ATPanDescriptorValue) atResponse.Value;
             if (pan == null) {
-                (sender as XBeeResponseTracker).UnregisterResponseHandler(atResponse.FrameId);
+                sender.UnregisterResponseHandler(atResponse.FrameId);
                 Console.WriteLine("{0} status: {1}, end of records",
                                   atResponse.Command, atResponse.CommandStatus);
             } else {
@@ -92,12 +92,12 @@ namespace XBee.Sample
             }
         }
 
-        public static void HandleNodeDiscover(object sender, FrameReceivedEventArgs args)
+        public static void HandleNodeDiscover(XBeeResponseTracker sender, FrameReceivedEventArgs args)
         {
             var atResponse = (ATCommandResponse) args.Response;
             var node = (ATNodeDiscoverValue) atResponse.Value;
             if (node == null) {
-                (sender as XBeeResponseTracker).UnregisterResponseHandler(atResponse.FrameId);
+                sender.UnregisterResponseHandler(atResponse.FrameId);
                 Console.WriteLine("{0} status: {1}, end of records",
                                   atResponse.Command, atResponse.CommandStatus);
             } else {

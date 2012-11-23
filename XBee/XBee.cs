@@ -21,11 +21,10 @@ namespace XBee
         private Thread receiveThread;
         private bool stopThread;
 
-        private bool frameReceived = false;
-        private XBeeFrame lastFrame = null;
         private IPacketReader reader;
         private ApiTypeValue apiType = ApiTypeValue.Enabled;
         private ApiVersion apiVersion;
+        private XBeeResponseTracker tracker;
 
         public event FrameReceivedHandler FrameReceived;
 
@@ -77,6 +76,13 @@ namespace XBee
              */
         }
 
+        public XBeeResponseTracker ResponseTracker {
+            get {
+                if (tracker == null) tracker = new XBeeResponseTracker();
+                return tracker;
+            }
+        }
+
         public void Execute(XBeeFrame frame)
         {
             XBeePacket packet;
@@ -96,7 +102,9 @@ namespace XBee
             packet.Assemble();
             if (connection == null)
                 throw new XBeeException("No connection set for this XBee yet.");
-            connection.Write(packet.Data);
+            lock (connection) {
+                connection.Write(packet.Data);
+            }
         }
 
         public T ExecuteQuery<T>(XBeeFrame frame) where T : XBeeFrame
@@ -116,22 +124,26 @@ namespace XBee
 
         public XBeeFrame ExecuteQuery(XBeeFrame frame, int timeout)
         {
-            if (frame.FrameId == XBeeResponseTracker.NoResponseFrameId)
-                throw new XBeeFrameException("FrameId cannot be zero on a synchronous request.");
+            XBeeFrame response = null;
+            var frameReceived = new AutoResetEvent(false);
 
-            lastFrame = null;
-            frameReceived = false;
+            frame.FrameId = ResponseTracker.RegisterResponseHandler(
+                delegate (XBeeResponseTracker sender, FrameReceivedEventArgs args) {
+                    response = args.Response;
+                    frameReceived.Set();
+                });
 
-            lock (this) {
-                Execute(frame);
-            }
+            Execute(frame);
+            frameReceived.WaitOne(timeout);
+            ResponseTracker.UnregisterResponseHandler(frame.FrameId);
 
-            while (!frameReceived && timeout > 0) {
-                Thread.Sleep(10);
-                timeout -= 10;
-            }
+            return response;
+        }
 
-            return lastFrame;
+        public void ExecuteQueryAsync(XBeeFrame frame, ResponseReceivedHandler responseCallback)
+        {
+            frame.FrameId = ResponseTracker.RegisterResponseHandler(responseCallback);
+            Execute(frame);
         }
 
         public void StopReceiveDataThread()
@@ -152,12 +164,15 @@ namespace XBee
 
         public void FrameReceivedEvent(object sender, FrameReceivedEventArgs args)
         {
-            frameReceived = true;
-            lastFrame = args.Response;
             logger.Debug(args.Response);
 
-            if (FrameReceived != null)
-                FrameReceived.Invoke(this, args);
+            if (args.Response.FrameId == XBeeResponseTracker.NoResponseFrameId
+                || tracker == null) {
+                if (FrameReceived != null)
+                    FrameReceived.Invoke(this, args);
+            } else {
+                tracker.HandleFrameReceived(this, args);
+            }
         }
 
         private void ReceiveData()
