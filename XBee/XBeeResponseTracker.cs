@@ -83,9 +83,9 @@ namespace XBee
         {
             ResponseReceivedHandler handler;
             if (callbacks.TryGetValue(args.Response.FrameId, out handler)) {
-                handler.Invoke(this, args);
+                handler(this, args);
             } else if (UnexpectedResponse != null) {
-                UnexpectedResponse.Invoke(this, args);
+                UnexpectedResponse(this, args);
             }
         }
     }
