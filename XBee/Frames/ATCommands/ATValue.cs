@@ -137,7 +137,8 @@ namespace XBee.Frames.ATCommands
 
         public override ATValue FromByteArray(byte[] value)
         {
-            Value = Encoding.ASCII.GetString(value, 0, maxLength);
+            var length = value.Length < maxLength ? value.Length : maxLength;
+            Value = Encoding.ASCII.GetString(value, 0, length);
             return this;
         }
 
