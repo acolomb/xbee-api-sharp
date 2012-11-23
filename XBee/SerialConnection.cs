@@ -11,6 +11,10 @@ namespace XBee
         private readonly SerialPort serialPort;
         private IPacketReader reader;
 
+		public bool IsOpen {
+			get { return serialPort.IsOpen; }
+		}
+
         public SerialConnection(string port, int baudRate)
         {
             serialPort = new SerialPort(port, baudRate);
