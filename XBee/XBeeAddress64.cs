@@ -16,7 +16,20 @@ namespace XBee
             this.address = addressLittleEndian;
         }
 
-        public override byte[] GetAddress()
+		public XBeeAddress64(ushort high, ushort low)
+		{
+			address = new byte[8];
+
+			var highArray = BitConverter.GetBytes(high);
+			if (BitConverter.IsLittleEndian) Array.Reverse(highArray);
+			highArray.CopyTo(address, 0);
+
+			var lowArray = BitConverter.GetBytes(low);
+			if (BitConverter.IsLittleEndian) Array.Reverse(lowArray);
+			lowArray.CopyTo(address, 4);
+		}
+
+		public override byte[] GetAddress()
         {
             return address;
         }
