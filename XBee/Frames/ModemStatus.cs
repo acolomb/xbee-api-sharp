@@ -4,15 +4,18 @@ namespace XBee.Frames
     {
         public enum StatusType
         {
-            HardwareReset = 0,
-            WatchdogReset = 1,
-            JoinedNetwork = 2,
-            Disassociated = 3,
-            CoordinatorStarted = 6,
-            NetworkSecurityKeyUpdated = 7,
-            VoltageExceeded = 0x0D,
-            ConfigurationChangedOnJoin = 0x11,
-            StackError = 0x80
+            HardwareReset               = 0,
+            WatchdogReset               = 1,
+            JoinedNetwork               = 2,
+            Associated                  = 2,
+            Disassociated               = 3,
+            SynchronizationLost         = 4,
+            CoordinatorRealignment      = 5,
+            CoordinatorStarted          = 6,
+            NetworkSecurityKeyUpdated   = 7,
+            VoltageExceeded             = 0x0D,
+            ConfigurationChangedOnJoin  = 0x11,
+            StackError                  = 0x80
         }
 
         private readonly PacketParser parser;
