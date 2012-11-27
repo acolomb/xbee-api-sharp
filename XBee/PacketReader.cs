@@ -54,7 +54,6 @@ namespace XBee
                 case ReaderState.LengthLSB:
                     WriteByte((byte) b);
                     packetLength = (packetLength | (uint) b) + 3;
-                    logger.Debug("Expecting packet length {0}.", packetLength);
                     state = ReaderState.Payload;
                     break;
 
