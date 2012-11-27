@@ -7,6 +7,7 @@ namespace XBee
     {
         public static XBeeAddress64 BROADCAST = new XBeeAddress64(0x000000000000FFFF);
         public static XBeeAddress64 ZNET_COORDINATOR = new XBeeAddress64(0);
+
         private readonly byte[] address;
 
         public XBeeAddress64(ulong address)
@@ -29,6 +30,13 @@ namespace XBee
 			lowArray.CopyTo(address, 4);
 		}
 
+        public XBeeAddress64(XBeeAddress16 shortAddress)
+        {
+            var source = shortAddress.GetAddress();
+            address = new byte[8];
+            source.CopyTo(address, address.Length - source.Length);
+        }
+
 		public override byte[] GetAddress()
         {
             return address;
@@ -45,6 +53,16 @@ namespace XBee
             var addr = (XBeeAddress64) obj;
 
             return GetAddress().SequenceEqual(addr.GetAddress());
+        }
+
+        public bool Equals(XBeeAddress16 obj)
+        {
+            var shortAddress = obj.GetAddress();
+            if (address.Take(address.Length - shortAddress.Length).All(element => element == 0)) {
+                return address.Skip(address.Length - shortAddress.Length).SequenceEqual(shortAddress);
+            } else {
+                return false;
+            }
         }
 
         public override int GetHashCode()

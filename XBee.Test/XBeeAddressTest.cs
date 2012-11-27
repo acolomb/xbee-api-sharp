@@ -99,5 +99,29 @@ namespace XBee.Test
             var localAddress2 = new XBeeAddress64(0xAABB);
             Assert.That(localAddress1.Equals(localAddress2), Is.False);
         }
+
+        [Test]
+        public void TestXBeeAddress64IsEqualAddress16()
+        {
+            var longAddress = new XBeeAddress64(0xAABB);
+            var shortAddress = new XBeeAddress16(0xAABB);
+            Assert.That(longAddress.Equals(shortAddress), Is.True);
+        }
+        
+        [Test]
+        public void TestXBeeAddress64IsNotEqualAddress16()
+        {
+            var longAddress = new XBeeAddress64(0xFFFE);
+            var shortAddress = new XBeeAddress16(0xAABB);
+            Assert.That(longAddress.Equals(shortAddress), Is.False);
+        }
+
+        [Test]
+        public void TestXBeeAddress64IsNotEqualPartialAddress16()
+        {
+            var localAddress1 = new XBeeAddress64(0x1122334455667788);
+            var localAddress2 = new XBeeAddress16(0x7788);
+            Assert.That(localAddress1.Equals(localAddress2), Is.False);
+        }
     }
 }
