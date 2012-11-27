@@ -7,7 +7,6 @@ namespace XBee.Frames
             HardwareReset               = 0,
             WatchdogReset               = 1,
             JoinedNetwork               = 2,
-            Associated                  = 2,
             Disassociated               = 3,
             SynchronizationLost         = 4,
             CoordinatorRealignment      = 5,
