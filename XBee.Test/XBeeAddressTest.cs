@@ -101,6 +101,14 @@ namespace XBee.Test
         }
 
         [Test]
+        public void TestXBeeAddress64FromAddress16()
+        {
+            var shortAddress = new XBeeAddress16(0xAABB);
+            var longAddress = new XBeeAddress64(shortAddress);
+            Assert.That(longAddress.GetAddress(), Is.EqualTo(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xAA, 0xBB }));
+        }
+        
+        [Test]
         public void TestXBeeAddress64IsEqualAddress16()
         {
             var longAddress = new XBeeAddress64(0xAABB);
