@@ -46,13 +46,6 @@ namespace XBee
             callbacks = new ConcurrentDictionary<byte, ResponseReceivedHandler>();
         }
 
-        public void RegisterDefaultFrameHandler(ResponseReceivedHandler handler)
-        {
-            callbacks.AddOrUpdate(NoResponseFrameId, handler,
-                                  (key, existingVal) => { return handler; });
-            logger.Debug("Registered handler {0} for responses with Frame ID {1}.", handler.Method.Name, NoResponseFrameId);
-        }
-
         public byte RegisterResponseHandler(ResponseReceivedHandler handler)
         {
             if (callbacks.Count == MaxFrameId) {
