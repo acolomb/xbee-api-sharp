@@ -72,6 +72,12 @@ namespace XBee
             logger.Debug("Frame ID {0}: Removed frame handler {1}.", frameId, handler.Method.Name);
         }
         
+        public void UnregisterAllHandlers()
+        {
+            callbacks.Clear();
+            NextFrameId = DefaultFrameId;
+        }
+
         public void HandleFrameReceived(object sender, FrameReceivedEventArgs args)
         {
             ResponseReceivedHandler handler;
