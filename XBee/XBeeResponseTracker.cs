@@ -58,7 +58,7 @@ namespace XBee
                 frameId = NextFrameId;
             } while (! callbacks.GetOrAdd(frameId, handler).Equals(handler));
 
-            logger.Debug("Registered handler {0} for responses with Frame ID {1}.", handler.Method.Name, frameId);
+            logger.Debug("Frame ID {0}: Registered handler {1} for responses.", frameId, handler.Method.Name);
             return frameId;
         }
         
@@ -69,13 +69,14 @@ namespace XBee
                 // recycle frame ID so it grows slower
                 NextFrameId = frameId;
             }
-            logger.Debug("Removed frame handler {0} for Frame ID {1}.", handler.Method.Name, frameId);
+            logger.Debug("Frame ID {0}: Removed frame handler {1}.", frameId, handler.Method.Name);
         }
         
         public void HandleFrameReceived(object sender, FrameReceivedEventArgs args)
         {
             ResponseReceivedHandler handler;
             if (callbacks.TryGetValue(args.Response.FrameId, out handler)) {
+                logger.Debug("Frame ID {0}: Calling handler {1}.", args.Response.FrameId, handler.Method.Name);
                 handler(this, args);
             } else if (UnexpectedResponse != null) {
                 UnexpectedResponse(this, args);
