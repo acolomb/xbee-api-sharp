@@ -285,6 +285,8 @@ namespace XBee.Frames.ATCommands
         HardwareVersion,
         [AT("AI", "Association Indication", ATValueType.Number, 0xFF)]
         AssociationIndication,
+        [AT("CK", "Configuration Checksum", ATValueType.Number)]
+        ConfigurationChecksum,
         [AT("EC", "CCA Failures", ApiVersion.S1, ATValueType.Number, 0)]
         CCAFailures,
         [AT("EA", "ACK Failures", ApiVersion.S1, ATValueType.Number, 0)]
