@@ -28,10 +28,10 @@ namespace XBee
         public void ReceiveData(byte[] data)
         {
             var inputStream = new MemoryStream(data);
-            CopyAndProcessData(inputStream);
+            ReceiveStreamData(inputStream);
         }
 
-        private void CopyAndProcessData(Stream inputStream)
+        public void ReceiveStreamData(Stream inputStream)
         {
             int b;
             while ((b = inputStream.ReadByte()) != -1) {
@@ -67,7 +67,6 @@ namespace XBee
                 }
             }
         }
-
 
         protected virtual void WriteByte(byte b)
         {
