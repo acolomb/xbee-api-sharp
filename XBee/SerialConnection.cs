@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.IO.Ports;
 using NLog;
@@ -10,6 +11,8 @@ namespace XBee
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly SerialPort serialPort;
         private IPacketReader reader;
+
+        public event EventHandler<ReceiveExceptionEventArgs> ReceiveException;
 
         public Handshake FlowControl {
             get { return serialPort.Handshake; }
@@ -36,7 +39,12 @@ namespace XBee
             serialPort.Read(buffer, 0, length);
 
             logger.Debug("Receiving data: [" + ByteUtils.ToBase16(buffer) + "]");
-            reader.ReceiveData(buffer);
+            try {
+                    reader.ReceiveData(buffer);
+            } catch (Exception ex) {
+                if (ReceiveException != null) ReceiveException(this, new ReceiveExceptionEventArgs(ex));
+                else logger.Warn("No handler to notify about exception:\n{0}", ex.Message);
+            }
         }
 
         public void Write(byte[] data)
