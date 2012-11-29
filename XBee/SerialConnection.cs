@@ -33,14 +33,16 @@ namespace XBee
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
         {
-            var length = serialPort.BytesToRead;
-            var buffer = new byte[length];
-
-            serialPort.Read(buffer, 0, length);
+            byte[] buffer;
+            lock (serialPort) {
+                var length = serialPort.BytesToRead;
+                buffer = new byte[length];
+                serialPort.Read(buffer, 0, length);
+            }
 
             logger.Debug("Receiving data: [" + ByteUtils.ToBase16(buffer) + "]");
             try {
-                    reader.ReceiveData(buffer);
+                reader.ReceiveData(buffer);
             } catch (Exception ex) {
                 if (ReceiveException != null) ReceiveException(this, new ReceiveExceptionEventArgs(ex));
                 else logger.Warn("No handler to notify about exception:\n{0}", ex.Message);
@@ -65,7 +67,9 @@ namespace XBee
 
         public void Close()
         {
-            serialPort.Close();
+            lock (serialPort) {
+                serialPort.Close();
+            }
         }
 
         public void SetPacketReader(IPacketReader reader)
