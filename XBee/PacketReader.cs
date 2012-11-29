@@ -59,9 +59,9 @@ namespace XBee
 
                 case ReaderState.Payload:
                     WriteByte((byte) b);
-                    if (packetStream.Length == packetLength) {
-                        ProcessReceivedData();
+                    if (packetStream.Length >= packetLength) {
                         state = ReaderState.Idle;
+                        ProcessReceivedData();
                     }
                     break;
                 }
