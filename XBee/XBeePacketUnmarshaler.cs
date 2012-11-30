@@ -52,14 +52,14 @@ namespace XBee
             var length = (uint) (packetData[0] << 8 | packetData[1]);
 
             if ((length == 0) || (length > 0xFFFF))
-                throw new XBeeFrameException(String.Format("Invalid Frame Length {0}.", length));
+                throw new XBeeFrameException(String.Format("Invalid Frame Length {0}.", length)) { PacketData = packetData };
 
             if (length != packetData.Length - 3)
-                throw new XBeeFrameException(String.Format("Invalid Frame Length - Expecting {0}, received {1}.", length, packetData.Length - 3));
+                throw new XBeeFrameException(String.Format("Invalid Frame Length - Expecting {0}, received {1}.", length, packetData.Length - 3)) { PacketData = packetData };
 
             var checkData = packetData.Skip(2).ToArray();
             if (!XBeeChecksum.Verify(checkData)) 
-                throw new XBeeFrameException("Invalid Frame Checksum.");
+                throw new XBeeFrameException("Invalid Frame Checksum.") { PacketData = packetData };
 
             var dataStream = new MemoryStream(checkData.Take(checkData.Length - 1).ToArray());
             var cmd = (XBeeAPICommandId) dataStream.ReadByte();
@@ -69,7 +69,7 @@ namespace XBee
                 frame.UseApiVersion(apiVersion);
                 frame.Parse();
             } else {
-                throw new XBeeFrameException(String.Format("Unsupported Command Id 0x{0:X2}", cmd));
+                throw new XBeeFrameException(String.Format("Unsupported Command Id 0x{0:X2}", cmd)) { PacketData = packetData };
             }
 
             return frame;

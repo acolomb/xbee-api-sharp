@@ -5,6 +5,8 @@ namespace XBee.Exceptions
 {
     public class XBeeFrameException : Exception
     {
+        public byte[] PacketData { get; set; }
+
         public XBeeFrameException(String message)
             : base(message)
         { }
