@@ -31,10 +31,14 @@ namespace XBee
             ReceiveStreamData(inputStream);
         }
 
-        public void ReceiveStreamData(Stream inputStream)
+        public void ReceiveStreamData(Stream inputStream, int readLimit = -1)
         {
-            int b;
-            while ((b = inputStream.ReadByte()) != -1) {
+            int bytesRead = 0;
+            while (readLimit == -1 || bytesRead < readLimit) {
+                var b = inputStream.ReadByte();
+                if (b == -1) break;     //ReadByte implementation in SerialPort.BaseStream throws exception instead
+                ++bytesRead;
+
                 switch (state) {
                 case ReaderState.Idle:
                     if (b == (int) XBeeSpecialBytes.StartByte) {
@@ -43,7 +47,7 @@ namespace XBee
                     } else {
                         logger.Info("Ignoring byte {0:X2} in packet reader state {1}.", b, state);
                     }
-                    continue;   //don't store this byte in the output packet
+                    break;
 
                 case ReaderState.LengthMSB:
                     WriteByte((byte) b);
@@ -66,6 +70,7 @@ namespace XBee
                     break;
                 }
             }
+            logger.Debug("State {0} after {1} bytes received.", state, bytesRead);
         }
 
         protected virtual void WriteByte(byte b)
