@@ -134,7 +134,10 @@ namespace XBee
                 });
 
             Execute(frame);
-            frameReceived.WaitOne(timeout);
+            if (! frameReceived.WaitOne(timeout)) {
+                logger.Info("No response received for {0} Frame ID {1} after {2} ms.",
+                            frame.GetType().Name, frame.FrameId, timeout);
+            }
             ResponseTracker.UnregisterResponseHandler(frame.FrameId);
 
             return response;
