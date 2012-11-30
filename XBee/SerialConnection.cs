@@ -33,7 +33,7 @@ namespace XBee
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
         {
-            try {
+            if (serialPort.BytesToRead > 0) try {
                 reader.ReceiveStreamData(serialPort.BaseStream, serialPort.BytesToRead);
             } catch (Exception ex) {
                 if (ReceiveException != null) ReceiveException(this, new ReceiveExceptionEventArgs(ex));
