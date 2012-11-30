@@ -33,16 +33,8 @@ namespace XBee
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
         {
-            byte[] buffer;
-            lock (serialPort) {
-                var length = serialPort.BytesToRead;
-                buffer = new byte[length];
-                serialPort.Read(buffer, 0, length);
-            }
-
-            logger.Debug("Receiving data: [" + ByteUtils.ToBase16(buffer) + "]");
             try {
-                reader.ReceiveData(buffer);
+                reader.ReceiveStreamData(serialPort.BaseStream, serialPort.BytesToRead);
             } catch (Exception ex) {
                 if (ReceiveException != null) ReceiveException(this, new ReceiveExceptionEventArgs(ex));
                 else logger.Warn("No handler to notify about exception:\n{0}", ex.Message);
