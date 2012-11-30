@@ -14,21 +14,35 @@ namespace XBee
 
         public event EventHandler<ReceiveExceptionEventArgs> ReceiveException;
 
+        public int BaudRate {
+            get { return serialPort.BaudRate; }
+            set { serialPort.BaudRate = value; }
+        }
+        public Parity Parity {
+            get { return serialPort.Parity; }
+            set { serialPort.Parity = value; }
+        }
+        public StopBits StopBits {
+            get { return serialPort.StopBits; }
+            set { serialPort.StopBits = value; }
+        }
         public Handshake FlowControl {
             get { return serialPort.Handshake; }
             set { serialPort.Handshake = value; }
         }
-
         public bool IsOpen {
             get { return serialPort.IsOpen; }
         }
 
         public SerialConnection(string port, int baudRate)
         {
-            serialPort = new SerialPort(port, baudRate);
-            serialPort.DataReceived += ReceiveData;
+            serialPort = new SerialPort(port);
+            BaudRate = baudRate;
+            Parity = System.IO.Ports.Parity.None;
+            StopBits = System.IO.Ports.StopBits.One;
+            FlowControl = Handshake.None;
 
-            FlowControl = Handshake.RequestToSend;
+            serialPort.DataReceived += ReceiveData;
         }
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
