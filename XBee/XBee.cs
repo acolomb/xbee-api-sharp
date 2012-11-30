@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using NLog;
 using XBee.Exceptions;
+using XBee.Utils;
 
 namespace XBee
 {
@@ -105,6 +106,7 @@ namespace XBee
             lock (connection) {
                 connection.Write(packet.Data);
             }
+            logger.Debug("Sent API frame: [" + ByteUtils.ToBase16(packet.Data) + "]");
         }
 
         public T ExecuteQuery<T>(XBeeFrame frame) where T : XBeeFrame
