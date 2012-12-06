@@ -8,7 +8,8 @@ namespace XBee.Frames
         [Flags]
         public enum OptionValues : byte
         {
-            DisableAck = 0x01,
+            DisableAck      = 0x01,
+			BroadcastPanId  = 0x04,
             ExtendedTimeout = 0x40,
         }
 
