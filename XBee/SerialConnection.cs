@@ -41,6 +41,7 @@ namespace XBee
             Parity = System.IO.Ports.Parity.None;
             StopBits = System.IO.Ports.StopBits.One;
             FlowControl = Handshake.None;
+			serialPort.RtsEnable = true;
 
             serialPort.DataReceived += ReceiveData;
         }
