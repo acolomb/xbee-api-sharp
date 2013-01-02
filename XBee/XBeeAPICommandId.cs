@@ -1,4 +1,4 @@
-﻿namespace XBee
+namespace XBee
 {
     public enum XBeeAPICommandId
     {

@@ -1,4 +1,4 @@
-﻿using XBee.Exceptions;
+using XBee.Exceptions;
 
 namespace XBee
 {
