@@ -17,7 +17,7 @@ namespace XBee
             this.address = addressLittleEndian;
         }
 
-		public XBeeAddress64(ushort high, ushort low)
+		public XBeeAddress64(uint high, uint low)
 		{
 			address = new byte[8];
 
