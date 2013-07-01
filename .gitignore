@@ -1,4 +1,5 @@
+/*.userprefs
+/xbee-api-sharp.suo
 bin/
 obj/
-/*.userprefs
 test-results/
